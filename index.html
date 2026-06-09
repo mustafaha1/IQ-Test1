@@ -45,6 +45,8 @@
         .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(99,102,241,0.4); }
         .btn-secondary { background: #e2e8f0; color: #475569; box-shadow: none; }
         .btn-secondary:hover { background: #cbd5e1; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .btn-gold { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .btn-gold:hover { box-shadow: 0 8px 25px rgba(245,158,11,0.4); }
         .lang-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 15px; margin: 25px 0;
@@ -151,6 +153,8 @@
         .btn-share:hover { box-shadow: 0 8px 20px rgba(6,182,212,0.4); }
         .btn-copy { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
         .btn-copy:hover { box-shadow: 0 8px 20px rgba(139,92,246,0.4); }
+        .btn-leaderboard { background: linear-gradient(135deg, #ec4899, #db2777); }
+        .btn-leaderboard:hover { box-shadow: 0 8px 20px rgba(236,72,153,0.4); }
 
         .toast {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
@@ -190,6 +194,69 @@
             border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.85em;
         }
 
+        /* LEADERBOARD STYLES */
+        .leaderboard-screen { padding: 20px 0; }
+        .leaderboard-tabs {
+            display: flex; gap: 10px; justify-content: center; margin-bottom: 25px; flex-wrap: wrap;
+        }
+        .leaderboard-tab {
+            padding: 10px 24px; border-radius: 50px; border: 2px solid #cbd5e1;
+            background: white; cursor: pointer; font-weight: 700; color: #475569;
+            transition: all 0.3s ease;
+        }
+        .leaderboard-tab.active { background: #6366f1; color: white; border-color: #6366f1; }
+        .leaderboard-tab:hover:not(.active) { border-color: #6366f1; color: #6366f1; }
+        .leaderboard-table {
+            width: 100%; border-collapse: collapse; margin-top: 15px;
+        }
+        .leaderboard-table th {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;
+            padding: 14px 12px; font-weight: 700; text-align: center; font-size: 0.9em;
+        }
+        .leaderboard-table th:first-child { border-radius: 12px 0 0 0; }
+        .leaderboard-table th:last-child { border-radius: 0 12px 0 0; }
+        .leaderboard-table td {
+            padding: 14px 12px; text-align: center; border-bottom: 1px solid #e2e8f0;
+            font-weight: 600; color: #0f172a;
+        }
+        .leaderboard-table tr:hover td { background: #f8fafc; }
+        .leaderboard-table .rank-1 { background: linear-gradient(135deg, #fef3c7, #fde68a); font-weight: 800; }
+        .leaderboard-table .rank-2 { background: linear-gradient(135deg, #f1f5f9, #e2e8f0); font-weight: 800; }
+        .leaderboard-table .rank-3 { background: linear-gradient(135deg, #fef2f2, #fee2e2); font-weight: 800; }
+        .leaderboard-table .rank-cell { font-size: 1.3em; }
+        .leaderboard-table .iq-cell { color: #6366f1; font-size: 1.2em; }
+        .leaderboard-table .name-cell { font-weight: 700; }
+        .leaderboard-table .date-cell { color: #64748b; font-size: 0.85em; }
+        .medal { font-size: 1.5em; }
+        .leaderboard-empty {
+            text-align: center; padding: 40px; color: #64748b; font-size: 1.1em;
+        }
+        .leaderboard-filters {
+            display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;
+        }
+        .leaderboard-filter {
+            padding: 8px 16px; border-radius: 8px; border: 2px solid #e2e8f0;
+            background: white; cursor: pointer; font-size: 0.9em; font-weight: 600;
+            transition: all 0.3s;
+        }
+        .leaderboard-filter.active { background: #0f172a; color: white; border-color: #0f172a; }
+        .leaderboard-input {
+            padding: 12px 20px; border: 2px solid #cbd5e1; border-radius: 50px;
+            font-size: 1em; width: 100%; max-width: 300px; margin: 10px auto;
+            display: block; text-align: center; font-weight: 600;
+        }
+        .leaderboard-input:focus { outline: none; border-color: #6366f1; }
+        .leaderboard-stats {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px; margin-bottom: 25px;
+        }
+        .leaderboard-stat-box {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-radius: 12px; padding: 15px; text-align: center;
+        }
+        .leaderboard-stat-box .value { font-size: 1.6em; font-weight: 800; color: #6366f1; }
+        .leaderboard-stat-box .label { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+
         .rtl { direction: rtl; text-align: right; }
         .rtl .stat-row { flex-direction: row-reverse; }
         .rtl .breakdown { text-align: right; }
@@ -199,6 +266,8 @@
         .rtl .action-buttons { flex-direction: row-reverse; }
         .rtl .share-link-box { flex-direction: row-reverse; }
         .rtl .share-link-box input { text-align: right; }
+        .rtl .leaderboard-table th,
+        .rtl .leaderboard-table td { text-align: center; }
 
         @media (max-width: 600px) {
             .container { padding: 20px; }
@@ -208,6 +277,8 @@
             .live-standing { grid-template-columns: repeat(2, 1fr); }
             .action-buttons { flex-direction: column; }
             .action-buttons .action-btn { width: 100%; justify-content: center; }
+            .leaderboard-table { font-size: 0.85em; }
+            .leaderboard-table th, .leaderboard-table td { padding: 10px 6px; }
         }
     </style>
 </head>
@@ -236,10 +307,13 @@
                     <li id="info3">20-minute time limit</li>
                     <li id="info4">After EACH answer, see your live IQ, percentile, and population standing</li>
                     <li id="info5">Scoring: Deviation IQ (Mean 100, SD 15) with real-time z-score calculation</li>
+                    <li id="info6">NEW: Global leaderboard to compare with other test-takers worldwide</li>
+                    <li id="info7">NEW: 8 question types including logic puzzles, memory, and pattern recognition</li>
                 </ul>
             </div>
             <div style="text-align: center; margin-top: 30px;">
                 <button class="btn" id="beginBtn" onclick="startTest()">Begin Assessment</button>
+                <button class="btn btn-gold" id="leaderboardBtn" onclick="showLeaderboardScreen()">🏆 Leaderboard</button>
             </div>
         </div>
 
@@ -306,7 +380,7 @@
                     <strong>Note:</strong> This is an educational simulation using the Deviation IQ formula: <em>IQ = 100 + 15 × z-score</em>. 
                     Official IQ tests must be administered by qualified psychologists under standardized conditions.
                 </div>
-                
+
                 <!-- SAVE & SHARE ACTIONS -->
                 <div class="action-buttons">
                     <button class="action-btn btn-save" onclick="saveResults()">
@@ -318,11 +392,15 @@
                     <button class="action-btn btn-copy" onclick="copyResults()">
                         <span>📋</span> <span id="copyBtnText">Copy Text</span>
                     </button>
+                    <button class="action-btn btn-leaderboard" onclick="promptLeaderboardEntry()">
+                        <span>🏆</span> <span id="leaderboardBtnText">Add to Leaderboard</span>
+                    </button>
                 </div>
-                
+
                 <div style="margin-top: 25px;">
                     <button class="btn" id="restartBtn" onclick="restartTest()">🔄 New Test (Different Questions)</button>
                     <button class="btn btn-secondary" id="reviewBtn" onclick="showReview()">📋 Review Answers</button>
+                    <button class="btn btn-gold" onclick="showLeaderboardScreen()">🏆 View Leaderboard</button>
                 </div>
             </div>
         </div>
@@ -333,6 +411,24 @@
             <div id="reviewContainer"></div>
             <div style="text-align: center; margin-top: 30px;">
                 <button class="btn" id="backBtn" onclick="showResults()">← Back to Results</button>
+            </div>
+        </div>
+
+        <!-- LEADERBOARD SCREEN -->
+        <div class="screen" id="leaderboardScreen">
+            <div class="header">
+                <h1>🏆 Global Leaderboard</h1>
+                <p id="leaderboardSubtitle">Compare your results with test-takers worldwide</p>
+            </div>
+            <div class="leaderboard-screen">
+                <div class="leaderboard-stats" id="leaderboardStats"></div>
+                <div class="leaderboard-tabs" id="leaderboardTabs"></div>
+                <div class="leaderboard-filters" id="leaderboardFilters"></div>
+                <div id="leaderboardContent"></div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn" onclick="backFromLeaderboard()">← Back</button>
+                <button class="btn btn-secondary" onclick="clearLeaderboard()">🗑️ Clear My Data</button>
             </div>
         </div>
     </div>
@@ -375,10 +471,26 @@
         </div>
     </div>
 
+    <!-- LEADERBOARD ENTRY MODAL -->
+    <div class="share-modal" id="leaderboardModal" onclick="closeLeaderboardModal(event)">
+        <div class="share-box" onclick="event.stopPropagation()">
+            <h3 id="leaderboardModalTitle">🏆 Add to Leaderboard</h3>
+            <p style="color: #64748b; margin-bottom: 20px; font-size: 0.95em;" id="leaderboardModalDesc">
+                Enter your name to save your score to the global leaderboard!
+            </p>
+            <input type="text" id="leaderboardNameInput" class="leaderboard-input" placeholder="Your Name" maxlength="20">
+            <div style="margin-top: 20px;">
+                <button class="btn" onclick="submitToLeaderboard()" id="submitLeaderboardBtn">Save Score</button>
+                <button class="btn btn-secondary" onclick="closeLeaderboardModal()" id="cancelLeaderboardBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <!-- TOAST -->
     <div class="toast" id="toast"></div>
 
 <script>
+
 // ==================== TRANSLATIONS ====================
 const translations = {
     en: {
@@ -392,6 +504,8 @@ const translations = {
         info3: '20-minute time limit',
         info4: 'After EACH answer, see your live IQ, percentile, and population standing',
         info5: 'Scoring: Deviation IQ (Mean 100, SD 15) with real-time z-score calculation',
+        info6: 'NEW: Global leaderboard to compare with other test-takers worldwide',
+        info7: 'NEW: 8 question types including logic puzzles, memory, and pattern recognition',
         beginBtn: 'Begin Assessment',
         liveIQLabel: 'Current IQ', livePercentileLabel: 'Percentile', liveClassLabel: 'Classification', liveRarityLabel: 'Rarity',
         questionCounter: 'Question {n} of {total}',
@@ -414,6 +528,33 @@ const translations = {
         copySuccess: 'Results copied to clipboard!',
         linkCopySuccess: 'Link copied to clipboard!',
         shareText: 'I scored {iq} IQ on the Dynamic IQ Assessment! That\'s the {percentile}th percentile — {classification}. Try it yourself!',
+        leaderboardTitle: '🏆 Global Leaderboard',
+        leaderboardSubtitle: 'Compare your results with test-takers worldwide',
+        leaderboardAdd: 'Add to Leaderboard',
+        leaderboardView: '🏆 View Leaderboard',
+        leaderboardNamePrompt: 'Enter your name to save your score to the global leaderboard!',
+        leaderboardSave: 'Save Score',
+        leaderboardCancel: 'Cancel',
+        leaderboardEmpty: 'No scores yet. Be the first to take the test!',
+        leaderboardRank: 'Rank',
+        leaderboardName: 'Name',
+        leaderboardIQ: 'IQ',
+        leaderboardPercentile: 'Percentile',
+        leaderboardDate: 'Date',
+        leaderboardAccuracy: 'Accuracy',
+        leaderboardTime: 'Time',
+        leaderboardAllTime: 'All Time',
+        leaderboardToday: 'Today',
+        leaderboardWeek: 'This Week',
+        leaderboardMonth: 'This Month',
+        leaderboardYourRank: 'Your Rank',
+        leaderboardTopPlayers: 'Top Players',
+        leaderboardTotalTests: 'Total Tests',
+        leaderboardAvgIQ: 'Average IQ',
+        leaderboardHighest: 'Highest IQ',
+        leaderboardClear: '🗑️ Clear My Data',
+        leaderboardCleared: 'Your leaderboard data has been cleared!',
+        leaderboardAdded: 'Score added to leaderboard!',
         classifications: {
             genius: 'Genius / Near-Perfect', verySuperior: 'Very Superior (Gifted)', superior: 'Superior',
             highAverage: 'High Average', average: 'Average', lowAverage: 'Low Average',
@@ -434,6 +575,10 @@ const translations = {
             mathRatio: 'If the ratio of A to B is {a}:{b}, and A = {aM}, what is B?',
             mathAlgebra: 'If {a}x + {b} = {c}, then x = ?',
             mathSpeed: 'If a car travels {dist} miles in {time} minutes, what is its speed in mph?',
+            logicQ: 'Which statement is logically valid?',
+            memoryQ: 'Memorize this sequence. What was the {pos} item?',
+            logicSyllogism: 'All {A} are {B}. All {B} are {C}. Therefore:',
+            logicPattern: 'If {rule1}, and {rule2}, then what follows?',
             verbalAnalogies: [
                 {q: 'Hand is to Glove as Foot is to:', options: ['Toe', 'Shoe', 'Sock', 'Ankle'], correct: 1, exp: 'A glove covers a hand; a shoe covers a foot.'},
                 {q: 'Book is to Reading as Fork is to:', options: ['Kitchen', 'Eating', 'Cooking', 'Food'], correct: 1, exp: 'A book is used for reading; a fork is used for eating.'},
@@ -446,6 +591,106 @@ const translations = {
             ]
         }
     },
+
+    fa: {
+        flag: '🇮🇷', name: 'فارسی', rtl: true,
+        langSubtitle: 'زبان خود را انتخاب کنید',
+        startTitle: '🧠 ارزیابی هوش پویا',
+        startSubtitle: 'سوالات تولید شده رویه‌ای • وضعیت زنده',
+        infoTitle: 'نحوه کار',
+        info1: 'هر سوال به صورت تصادفی تولید می‌شود — هیچ دو آزمونی یکسان نیستند',
+        info2: '۲۵ سوال در ۵ حوزه شناختی',
+        info3: 'محدودیت زمانی: ۲۰ دقیقه',
+        info4: 'پس از هر پاسخ، نمره IQ، صدک و جایگاه خود را در جمعیت ببینید',
+        info5: 'امتیازدهی: انحراف IQ (میانگین ۱۰۰، انحراف معیار ۱۵) با محاسبه z-score زنده',
+        info6: 'جدید: جدول رتبه‌بندی جهانی برای مقایسه با شرکت‌کنندگان در سراسر جهان',
+        info7: 'جدید: ۸ نوع سوال شامل معماهای منطقی، حافظه و تشخیص الگو',
+        beginBtn: 'شروع ارزیابی',
+        liveIQLabel: 'IQ فعلی', livePercentileLabel: 'صدک', liveClassLabel: 'طبقه‌بندی', liveRarityLabel: 'کمیابی',
+        questionCounter: 'سوال {n} از {total}',
+        timer: 'زمان: {time}',
+        prevBtn: '→ قبلی', nextBtn: 'بعدی ←', finishBtn: 'پایان',
+        resultTitle: 'ارزیابی تکمیل شد', resultSubtitle: 'پروفایل شناختی نهایی شما',
+        breakdownTitle: 'جزئیات نهایی',
+        lblAnswered: 'سوالات پاسخ داده شده:', lblCorrect: 'پاسخ‌های صحیح:', lblAccuracy: 'نرخ دقت:',
+        lblIQ: 'انحراف IQ:', lblPercentile: 'صدک جمعیت:', lblClass: 'طبقه‌بندی:',
+        lblRarity: 'کمیابی:', lblTime: 'زمان استفاده شده:',
+        resultNote: '<strong>توجه:</strong> این یک شبیه‌سازی آموزشی با استفاده از فرمول انحراف IQ است: <em>IQ = ۱۰۰ + ۱۵ × z-score</em>. آزمون‌های رسمی IQ باید توسط روان‌شناسان واجد شرایط در شرایط استاندارد انجام شوند.',
+        restartBtn: '🔄 آزمون جدید (سوالات متفاوت)', reviewBtn: '📋 مرور پاسخ‌ها',
+        reviewTitle: 'مرور پاسخ‌ها', backBtn: '→ بازگشت به نتایج',
+        yourAnswer: 'پاسخ شما:', correct: 'صحیح:', explanation: 'توضیح:',
+        notAnswered: 'بدون پاسخ', skipped: 'رد شده', incorrect: 'نادرست',
+        saveBtn: '💾 ذخیره نتیجه', shareBtn: '🔗 اشتراک‌گذاری', copyBtn: '📋 کپی متن',
+        shareModalTitle: 'نتایج خود را به اشتراک بگذارید', closeShareBtn: 'بستن', copyLinkBtn: 'کپی',
+        nativeShareLabel: 'بومی',
+        saveSuccess: 'نتیجه به عنوان تصویر ذخیره شد!',
+        copySuccess: 'نتایج در کلیپ‌بورد کپی شد!',
+        linkCopySuccess: 'لینک در کلیپ‌بورد کپی شد!',
+        shareText: 'من در ارزیابی هوش پویا نمره {iq} IQ گرفتم! این صدک {percentile} است — {classification}. خودت امتحان کن!',
+        leaderboardTitle: '🏆 جدول رتبه‌بندی جهانی',
+        leaderboardSubtitle: 'نتایج خود را با شرکت‌کنندگان در سراسر جهان مقایسه کنید',
+        leaderboardAdd: 'افزودن به جدول رتبه‌بندی',
+        leaderboardView: '🏆 مشاهده جدول رتبه‌بندی',
+        leaderboardNamePrompt: 'نام خود را وارد کنید تا نمره شما در جدول رتبه‌بندی جهانی ذخیره شود!',
+        leaderboardSave: 'ذخیره نمره',
+        leaderboardCancel: 'لغو',
+        leaderboardEmpty: 'هنوز نمره‌ای وجود ندارد. اولین نفر باشید که آزمون می‌دهد!',
+        leaderboardRank: 'رتبه',
+        leaderboardName: 'نام',
+        leaderboardIQ: 'IQ',
+        leaderboardPercentile: 'صدک',
+        leaderboardDate: 'تاریخ',
+        leaderboardAccuracy: 'دقت',
+        leaderboardTime: 'زمان',
+        leaderboardAllTime: 'همیشه',
+        leaderboardToday: 'امروز',
+        leaderboardWeek: 'این هفته',
+        leaderboardMonth: 'این ماه',
+        leaderboardYourRank: 'رتبه شما',
+        leaderboardTopPlayers: 'بازیکنان برتر',
+        leaderboardTotalTests: 'کل آزمون‌ها',
+        leaderboardAvgIQ: 'میانگین IQ',
+        leaderboardHighest: 'بالاترین IQ',
+        leaderboardClear: '🗑️ پاک کردن داده‌های من',
+        leaderboardCleared: 'داده‌های جدول رتبه‌بندی شما پاک شد!',
+        leaderboardAdded: 'نمره به جدول رتبه‌بندی اضافه شد!',
+        classifications: {
+            genius: 'نابغه / نزدیک به کامل', verySuperior: 'بسیار برتر (بااستعداد)', superior: 'برتر',
+            highAverage: 'بالاتر از میانگین', average: 'میانگین', lowAverage: 'پایین‌تر از میانگین',
+            borderline: 'مرزی', extremelyLow: 'بسیار پایین'
+        },
+        rarity: {
+            '1in1000': '۱ در ۱,۰۰۰', '1in100': '۱ در ۱۰۰', '1in50': '۱ در ۵۰', '1in20': '۱ در ۲۰',
+            '1in10': '۱ در ۱۰', '1in6': '۱ در ۶', '1in2': '۱ در ۲'
+        },
+        generators: {
+            sequenceQ: 'چه عددی دنباله را کامل می‌کند؟',
+            letterQ: 'در الگو بعدی چیست؟',
+            spatialRotation: 'اگر {shape} در هر مرحله ۹۰ درجه در جهت عقربه‌های ساعت بچرخد، موقعیت پنجم چیست؟',
+            spatialMirror: 'تصویر آینه‌ای "{letter}" چیست؟',
+            spatialCount: 'چند شکل {shape} در {shapes} وجود دارد؟',
+            spatialFold: 'اگر کاغذ را {folds} بار تا کنید و {holes} سوراخ بزنید، هنگام باز کردن چند سوراخ دارد؟',
+            mathPercent: '{pct}% از {base} چقدر است؟',
+            mathRatio: 'اگر نسبت A به B {a}:{b} باشد و A = {aM}، B چقدر است؟',
+            mathAlgebra: 'اگر {a}x + {b} = {c}، آنگاه x = ؟',
+            mathSpeed: 'اگر ماشینی {dist} مایل در {time} دقیقه طی کند، سرعت آن به mph چقدر است؟',
+            logicQ: 'کدام گزاره از نظر منطقی معتبر است؟',
+            memoryQ: 'این دنباله را به خاطر بسپارید. آیتم {pos} چه بود؟',
+            logicSyllogism: 'همه {A} {B} هستند. همه {B} {C} هستند. بنابراین:',
+            logicPattern: 'اگر {rule1}، و {rule2}، آنگاه چه نتیجه‌ای می‌گیرد؟',
+            verbalAnalogies: [
+                {q: 'دست به دستکش مانند پا به:', options: ['انگشت', 'کفش', 'جوراب', 'مچ پا'], correct: 1, exp: 'دستکش دست را می‌پوشاند؛ کفش پا را می‌پوشاند.'},
+                {q: 'کتاب به خواندن مانند چنگال به:', options: ['آشپزخانه', 'خوردن', 'پختن', 'غذا'], correct: 1, exp: 'کتاب برای خواندن است؛ چنگال برای خوردن است.'},
+                {q: 'گرم به سرد مانند سریع به:', options: ['تند', 'آهسته', 'سرعت', 'سریع'], correct: 1, exp: 'رابطه ضد: گرم ↔ سرد، سریع ↔ آهسته.'},
+                {q: 'پزشک به بیمارستان مانند معلم به:', options: ['کتاب', 'مدرسه', 'دانش‌آموز', 'کلاس'], correct: 1, exp: 'رابطه محل کار: پزشک در بیمارستان کار می‌کند، معلم در مدرسه کار می‌کند.'},
+                {q: 'پیانو به موسیقی مانند قلمو به:', options: ['رنگ', 'بوم', 'هنر', 'رنگ'], correct: 2, exp: 'ابزار و حوزه: پیانو موسیقی می‌سازد، قلمو هنر می‌سازد.'},
+                {q: 'بذر به درخت مانند تخم به:', options: ['پرنده', 'آشیانه', 'مرغ', 'پوسته'], correct: 0, exp: 'چرخه حیات: بذر به درخت تبدیل می‌شود، تخم به پرنده تبدیل می‌شود.'},
+                {q: 'کوه به بلندی مانند دره به:', options: ['پهنا', 'عمق', 'پایینی', 'درازا'], correct: 2, exp: 'صفت/ضد: کوه بلند است، دره پایین است.'},
+                {q: 'روز به شب مانند سپیده‌دم به:', options: ['صبح', 'غروب', 'غسق', 'ظهر'], correct: 2, exp: 'جفت انتقالی: روز↔شب انتقال در سپیده‌دم↔غسق.'}
+            ]
+        }
+    },
+
     es: {
         flag: '🇪🇸', name: 'Español', rtl: false,
         langSubtitle: 'Selecciona tu idioma',
@@ -457,6 +702,8 @@ const translations = {
         info3: 'Límite de tiempo: 20 minutos',
         info4: 'Después de CADA respuesta, ve tu CI, percentil y posición en tiempo real',
         info5: 'Puntuación: CI de Desviación (Media 100, DE 15) con cálculo z-score en tiempo real',
+        info6: 'NUEVO: Tabla de clasificación global para comparar con otros participantes',
+        info7: 'NUEVO: 8 tipos de preguntas incluyendo acertijos lógicos, memoria y reconocimiento de patrones',
         beginBtn: 'Comenzar Evaluación',
         liveIQLabel: 'CI Actual', livePercentileLabel: 'Percentil', liveClassLabel: 'Clasificación', liveRarityLabel: 'Rareza',
         questionCounter: 'Pregunta {n} de {total}',
@@ -479,6 +726,23 @@ const translations = {
         copySuccess: '¡Resultados copiados al portapapeles!',
         linkCopySuccess: '¡Enlace copiado al portapapeles!',
         shareText: '¡Obtuve {iq} de CI en la Evaluación Dinámica de CI! Eso es el percentil {percentile} — {classification}. ¡Pruébalo tú mismo!',
+        leaderboardTitle: '🏆 Tabla de Clasificación Global',
+        leaderboardSubtitle: 'Compara tus resultados con participantes de todo el mundo',
+        leaderboardAdd: 'Añadir a la Clasificación',
+        leaderboardView: '🏆 Ver Clasificación',
+        leaderboardNamePrompt: '¡Introduce tu nombre para guardar tu puntuación en la tabla global!',
+        leaderboardSave: 'Guardar Puntuación',
+        leaderboardCancel: 'Cancelar',
+        leaderboardEmpty: 'Aún no hay puntuaciones. ¡Sé el primero en hacer el test!',
+        leaderboardRank: 'Rango', leaderboardName: 'Nombre', leaderboardIQ: 'CI',
+        leaderboardPercentile: 'Percentil', leaderboardDate: 'Fecha', leaderboardAccuracy: 'Precisión',
+        leaderboardTime: 'Tiempo', leaderboardAllTime: 'Siempre', leaderboardToday: 'Hoy',
+        leaderboardWeek: 'Esta Semana', leaderboardMonth: 'Este Mes',
+        leaderboardYourRank: 'Tu Rango', leaderboardTopPlayers: 'Mejores Jugadores',
+        leaderboardTotalTests: 'Tests Totales', leaderboardAvgIQ: 'CI Promedio',
+        leaderboardHighest: 'CI Más Alto', leaderboardClear: '🗑️ Borrar Mis Datos',
+        leaderboardCleared: '¡Tus datos de clasificación han sido borrados!',
+        leaderboardAdded: '¡Puntuación añadida a la clasificación!',
         classifications: {
             genius: 'Genio / Casi Perfecto', verySuperior: 'Muy Superior (Dotado)', superior: 'Superior',
             highAverage: 'Por Encima del Promedio', average: 'Promedio', lowAverage: 'Por Debajo del Promedio',
@@ -499,6 +763,10 @@ const translations = {
             mathRatio: 'Si la razón de A a B es {a}:{b}, y A = {aM}, ¿cuál es B?',
             mathAlgebra: 'Si {a}x + {b} = {c}, entonces x = ?',
             mathSpeed: 'Si un auto viaja {dist} millas en {time} minutos, ¿cuál es su velocidad en mph?',
+            logicQ: '¿Qué afirmación es lógicamente válida?',
+            memoryQ: 'Memoriza esta secuencia. ¿Cuál era el elemento {pos}?',
+            logicSyllogism: 'Todos los {A} son {B}. Todos los {B} son {C}. Por lo tanto:',
+            logicPattern: 'Si {rule1}, y {rule2}, entonces ¿qué sigue?',
             verbalAnalogies: [
                 {q: 'Mano es a Guante como Pie es a:', options: ['Dedo', 'Zapato', 'Calcetín', 'Tobillo'], correct: 1, exp: 'Un guante cubre una mano; un zapato cubre un pie.'},
                 {q: 'Libro es a Leer como Tenedor es a:', options: ['Cocina', 'Comer', 'Cocinar', 'Comida'], correct: 1, exp: 'Un libro se usa para leer; un tenedor se usa para comer.'},
@@ -522,6 +790,8 @@ const translations = {
         info3: 'Limite de temps : 20 minutes',
         info4: 'Après CHAQUE réponse, voyez votre QI, percentile et position en temps réel',
         info5: 'Notation : QI de Déviation (Moyenne 100, ET 15) avec calcul z-score en temps réel',
+        info6: 'NOUVEAU : Classement mondial pour comparer avec d\'autres participants',
+        info7: 'NOUVEAU : 8 types de questions incluant énigmes logiques, mémoire et reconnaissance de motifs',
         beginBtn: 'Commencer l\'Évaluation',
         liveIQLabel: 'QI Actuel', livePercentileLabel: 'Percentile', liveClassLabel: 'Classification', liveRarityLabel: 'Rareté',
         questionCounter: 'Question {n} sur {total}',
@@ -544,6 +814,23 @@ const translations = {
         copySuccess: 'Résultats copiés dans le presse-papiers !',
         linkCopySuccess: 'Lien copié dans le presse-papiers !',
         shareText: 'J\'ai obtenu {iq} de QI à l\'Évaluation Dynamique du QI ! C\'est le {percentile}e percentile — {classification}. Essayez-le vous-même !',
+        leaderboardTitle: '🏆 Classement Mondial',
+        leaderboardSubtitle: 'Comparez vos résultats avec les participants du monde entier',
+        leaderboardAdd: 'Ajouter au Classement',
+        leaderboardView: '🏆 Voir le Classement',
+        leaderboardNamePrompt: 'Entrez votre nom pour sauvegarder votre score dans le classement mondial !',
+        leaderboardSave: 'Sauvegarder le Score',
+        leaderboardCancel: 'Annuler',
+        leaderboardEmpty: 'Aucun score encore. Soyez le premier à passer le test !',
+        leaderboardRank: 'Rang', leaderboardName: 'Nom', leaderboardIQ: 'QI',
+        leaderboardPercentile: 'Percentile', leaderboardDate: 'Date', leaderboardAccuracy: 'Précision',
+        leaderboardTime: 'Temps', leaderboardAllTime: 'Tout Temps', leaderboardToday: 'Aujourd\'hui',
+        leaderboardWeek: 'Cette Semaine', leaderboardMonth: 'Ce Mois',
+        leaderboardYourRank: 'Votre Rang', leaderboardTopPlayers: 'Meilleurs Joueurs',
+        leaderboardTotalTests: 'Tests Totaux', leaderboardAvgIQ: 'QI Moyen',
+        leaderboardHighest: 'QI le Plus Élevé', leaderboardClear: '🗑️ Effacer Mes Données',
+        leaderboardCleared: 'Vos données de classement ont été effacées !',
+        leaderboardAdded: 'Score ajouté au classement !',
         classifications: {
             genius: 'Génie / Presque Parfait', verySuperior: 'Très Supérieur (Doué)', superior: 'Supérieur',
             highAverage: 'Au-Dessus de la Moyenne', average: 'Moyenne', lowAverage: 'En-Dessous de la Moyenne',
@@ -564,6 +851,10 @@ const translations = {
             mathRatio: 'Si le rapport de A à B est {a}:{b}, et A = {aM}, quelle est B ?',
             mathAlgebra: 'Si {a}x + {b} = {c}, alors x = ?',
             mathSpeed: 'Si une voiture parcourt {dist} miles en {time} minutes, quelle est sa vitesse en mph ?',
+            logicQ: 'Quelle affirmation est logiquement valide ?',
+            memoryQ: 'Mémorisez cette séquence. Quel était l\'élément {pos} ?',
+            logicSyllogism: 'Tous les {A} sont {B}. Tous les {B} sont {C}. Donc :',
+            logicPattern: 'Si {rule1}, et {rule2}, alors quelle conclusion ?',
             verbalAnalogies: [
                 {q: 'Main est à Gant comme Pied est à :', options: ['Orteil', 'Chaussure', 'Chaussette', 'Cheville'], correct: 1, exp: 'Un gant couvre une main ; une chaussure couvre un pied.'},
                 {q: 'Livre est à Lire comme Fourchette est à :', options: ['Cuisine', 'Manger', 'Cuisiner', 'Nourriture'], correct: 1, exp: 'Un livre sert à lire ; une fourchette sert à manger.'},
@@ -576,6 +867,7 @@ const translations = {
             ]
         }
     },
+
     de: {
         flag: '🇩🇪', name: 'Deutsch', rtl: false,
         langSubtitle: 'Wähle deine Sprache',
@@ -587,6 +879,8 @@ const translations = {
         info3: 'Zeitlimit: 20 Minuten',
         info4: 'Nach JEDER Antwort siehst du deinen IQ, Perzentil und Bevölkerungsstand in Echtzeit',
         info5: 'Bewertung: Abweichungs-IQ (Mittelwert 100, SD 15) mit Echtzeit-z-Score-Berechnung',
+        info6: 'NEU: Globale Bestenliste zum Vergleich mit anderen Teilnehmern weltweit',
+        info7: 'NEU: 8 Fragetypen inklusive Logikrätsel, Gedächtnis und Mustererkennung',
         beginBtn: 'Bewertung Beginnen',
         liveIQLabel: 'Aktueller IQ', livePercentileLabel: 'Perzentil', liveClassLabel: 'Klassifikation', liveRarityLabel: 'Seltenheit',
         questionCounter: 'Frage {n} von {total}',
@@ -609,6 +903,23 @@ const translations = {
         copySuccess: 'Ergebnisse in die Zwischenablage kopiert!',
         linkCopySuccess: 'Link in die Zwischenablage kopiert!',
         shareText: 'Ich habe {iq} IQ bei der Dynamischen IQ-Bewertung erreicht! Das ist das {percentile}. Perzentil — {classification}. Probiere es selbst aus!',
+        leaderboardTitle: '🏆 Globale Bestenliste',
+        leaderboardSubtitle: 'Vergleiche deine Ergebnisse mit Teilnehmern weltweit',
+        leaderboardAdd: 'Zur Bestenliste Hinzufügen',
+        leaderboardView: '🏆 Bestenliste Ansehen',
+        leaderboardNamePrompt: 'Gib deinen Namen ein, um deinen Score in die globale Bestenliste zu speichern!',
+        leaderboardSave: 'Score Speichern',
+        leaderboardCancel: 'Abbrechen',
+        leaderboardEmpty: 'Noch keine Scores. Sei der Erste, der den Test macht!',
+        leaderboardRank: 'Rang', leaderboardName: 'Name', leaderboardIQ: 'IQ',
+        leaderboardPercentile: 'Perzentil', leaderboardDate: 'Datum', leaderboardAccuracy: 'Genauigkeit',
+        leaderboardTime: 'Zeit', leaderboardAllTime: 'Gesamt', leaderboardToday: 'Heute',
+        leaderboardWeek: 'Diese Woche', leaderboardMonth: 'Dieser Monat',
+        leaderboardYourRank: 'Dein Rang', leaderboardTopPlayers: 'Top Spieler',
+        leaderboardTotalTests: 'Tests Gesamt', leaderboardAvgIQ: 'Durchschnitts-IQ',
+        leaderboardHighest: 'Höchster IQ', leaderboardClear: '🗑️ Meine Daten Löschen',
+        leaderboardCleared: 'Deine Bestenlistendaten wurden gelöscht!',
+        leaderboardAdded: 'Score zur Bestenliste hinzugefügt!',
         classifications: {
             genius: 'Genie / Nahezu Perfekt', verySuperior: 'Sehr Überlegen (Begabt)', superior: 'Überlegen',
             highAverage: 'Über dem Durchschnitt', average: 'Durchschnitt', lowAverage: 'Unter dem Durchschnitt',
@@ -629,6 +940,10 @@ const translations = {
             mathRatio: 'Wenn das Verhältnis von A zu B {a}:{b} ist, und A = {aM}, was ist B?',
             mathAlgebra: 'Wenn {a}x + {b} = {c}, dann x = ?',
             mathSpeed: 'Wenn ein Auto {dist} Meilen in {time} Minuten fährt, wie hoch ist seine Geschwindigkeit in mph?',
+            logicQ: 'Welche Aussage ist logisch gültig?',
+            memoryQ: 'Merke dir diese Sequenz. Was war das {pos}. Element?',
+            logicSyllogism: 'Alle {A} sind {B}. Alle {B} sind {C}. Also:',
+            logicPattern: 'Wenn {rule1}, und {rule2}, dann welche Folgerung?',
             verbalAnalogies: [
                 {q: 'Hand ist zu Handschuh wie Fuß ist zu:', options: ['Zehe', 'Schuh', 'Socke', 'Knöchel'], correct: 1, exp: 'Ein Handschuh bedeckt eine Hand; ein Schuh bedeckt einen Fuß.'},
                 {q: 'Buch ist zu Lesen wie Gabel ist zu:', options: ['Küche', 'Essen', 'Kochen', 'Essen'], correct: 1, exp: 'Ein Buch dient zum Lesen; eine Gabel dient zum Essen.'},
@@ -652,6 +967,8 @@ const translations = {
         info3: 'الحد الزمني: 20 دقيقة',
         info4: 'بعد كل إجابة، شاهد معدل ذكائك والنسبة المئوية وموقعك بين السكان مباشرة',
         info5: 'التقييم: انحراف معدل الذكاء (المتوسط 100، الانحراف المعياري 15) مع حساب z-score مباشر',
+        info6: 'جديد: لوحة المتصدرين العالمية للمقارنة مع المشاركين حول العالم',
+        info7: 'جديد: 8 أنواع من الأسئلة تشمل الألغاز المنطقية والذاكرة والتعرف على الأنماط',
         beginBtn: 'بدء التقييم',
         liveIQLabel: 'معدل الذكاء الحالي', livePercentileLabel: 'النسبة المئوية', liveClassLabel: 'التصنيف', liveRarityLabel: 'الندرة',
         questionCounter: 'السؤال {n} من {total}',
@@ -674,6 +991,23 @@ const translations = {
         copySuccess: 'تم نسخ النتائج إلى الحافظة!',
         linkCopySuccess: 'تم نسخ الرابط إلى الحافظة!',
         shareText: 'حصلت على {iq} في تقييم الذكاء الديناميكي! هذا هو النسبة المئوية {percentile} — {classification}. جربه بنفسك!',
+        leaderboardTitle: '🏆 لوحة المتصدرين العالمية',
+        leaderboardSubtitle: 'قارن نتائجك مع المشاركين حول العالم',
+        leaderboardAdd: 'إضافة إلى لوحة المتصدرين',
+        leaderboardView: '🏆 عرض لوحة المتصدرين',
+        leaderboardNamePrompt: 'أدخل اسمك لحفظ نتيجتك في لوحة المتصدرين العالمية!',
+        leaderboardSave: 'حفظ النتيجة',
+        leaderboardCancel: 'إلغاء',
+        leaderboardEmpty: 'لا توجد نتائج بعد. كن أول من يجري الاختبار!',
+        leaderboardRank: 'الترتيب', leaderboardName: 'الاسم', leaderboardIQ: 'الذكاء',
+        leaderboardPercentile: 'النسبة المئوية', leaderboardDate: 'التاريخ', leaderboardAccuracy: 'الدقة',
+        leaderboardTime: 'الوقت', leaderboardAllTime: 'كل الأوقات', leaderboardToday: 'اليوم',
+        leaderboardWeek: 'هذا الأسبوع', leaderboardMonth: 'هذا الشهر',
+        leaderboardYourRank: 'ترتيبك', leaderboardTopPlayers: 'أفضل اللاعبين',
+        leaderboardTotalTests: 'إجمالي الاختبارات', leaderboardAvgIQ: 'متوسط الذكاء',
+        leaderboardHighest: 'أعلى ذكاء', leaderboardClear: '🗑️ مسح بياناتي',
+        leaderboardCleared: 'تم مسح بيانات لوحة المتصدرين الخاصة بك!',
+        leaderboardAdded: 'تمت إضافة النتيجة إلى لوحة المتصدرين!',
         classifications: {
             genius: 'عبقري / شبه مثالي', verySuperior: 'متفوق جداً (موهوب)', superior: 'متفوق',
             highAverage: 'أعلى من المتوسط', average: 'متوسط', lowAverage: 'أقل من المتوسط',
@@ -694,6 +1028,10 @@ const translations = {
             mathRatio: 'إذا كانت النسبة من أ إلى ب هي {a}:{b}، وأ = {aM}، فما هي ب؟',
             mathAlgebra: 'إذا كان {a}x + {b} = {c}، فإن x = ؟',
             mathSpeed: 'إذا سارت سيارة {dist} ميلاً في {time} دقيقة، فما سرعتها بالميل/ساعة؟',
+            logicQ: 'أي عبارة منطقية صحيحة؟',
+            memoryQ: 'احفظ هذه المتسلسلة. ما كان العنصر {pos}؟',
+            logicSyllogism: 'كل {A} هم {B}. كل {B} هم {C}. إذن:',
+            logicPattern: 'إذا كان {rule1}، و{rule2}، فما النتيجة؟',
             verbalAnalogies: [
                 {q: 'اليد للقفاز كما القدم لـ:', options: ['إصبع', 'حذاء', 'جورب', 'كاحل'], correct: 1, exp: 'القفاز يغطي اليد؛ الحذاء يغطي القدم.'},
                 {q: 'الكتاب للقراءة كما الشوكة لـ:', options: ['مطبخ', 'أكل', 'طبخ', 'طعام'], correct: 1, exp: 'الكتاب يُستخدم للقراءة؛ الشوكة تُستخدم للأكل.'},
@@ -717,6 +1055,8 @@ const translations = {
         info3: '时间限制：20分钟',
         info4: '每次回答后，实时查看你的智商、百分位数和人口排名',
         info5: '评分：偏差智商（平均值100，标准差15）实时z分数计算',
+        info6: '新增：全球排行榜，与世界各地的测试者比较',
+        info7: '新增：8种问题类型，包括逻辑谜题、记忆和模式识别',
         beginBtn: '开始评估',
         liveIQLabel: '当前智商', livePercentileLabel: '百分位数', liveClassLabel: '分类', liveRarityLabel: '稀有度',
         questionCounter: '第 {n} 题，共 {total} 题',
@@ -739,6 +1079,23 @@ const translations = {
         copySuccess: '结果已复制到剪贴板！',
         linkCopySuccess: '链接已复制到剪贴板！',
         shareText: '我在动态智商评估中获得了{iq}分！这是第{percentile}百分位 — {classification}。你自己试试吧！',
+        leaderboardTitle: '🏆 全球排行榜',
+        leaderboardSubtitle: '将你的结果与世界各地的测试者比较',
+        leaderboardAdd: '添加到排行榜',
+        leaderboardView: '🏆 查看排行榜',
+        leaderboardNamePrompt: '输入你的名字，将你的分数保存到全球排行榜！',
+        leaderboardSave: '保存分数',
+        leaderboardCancel: '取消',
+        leaderboardEmpty: '还没有分数。成为第一个参加测试的人！',
+        leaderboardRank: '排名', leaderboardName: '姓名', leaderboardIQ: '智商',
+        leaderboardPercentile: '百分位数', leaderboardDate: '日期', leaderboardAccuracy: '准确率',
+        leaderboardTime: '时间', leaderboardAllTime: '全部时间', leaderboardToday: '今天',
+        leaderboardWeek: '本周', leaderboardMonth: '本月',
+        leaderboardYourRank: '你的排名', leaderboardTopPlayers: '顶尖玩家',
+        leaderboardTotalTests: '总测试数', leaderboardAvgIQ: '平均智商',
+        leaderboardHighest: '最高智商', leaderboardClear: '🗑️ 清除我的数据',
+        leaderboardCleared: '你的排行榜数据已清除！',
+        leaderboardAdded: '分数已添加到排行榜！',
         classifications: {
             genius: '天才 / 接近完美', verySuperior: '非常优秀（天赋）', superior: '优秀',
             highAverage: '高于平均', average: '平均', lowAverage: '低于平均',
@@ -759,6 +1116,10 @@ const translations = {
             mathRatio: '如果A与B的比例是{a}:{b}，且A = {aM}，那么B是多少？',
             mathAlgebra: '如果{a}x + {b} = {c}，那么x = ？',
             mathSpeed: '如果一辆汽车在{time}分钟内行驶{dist}英里，它的速度是多少mph？',
+            logicQ: '哪个陈述在逻辑上是有效的？',
+            memoryQ: '记住这个序列。第{pos}项是什么？',
+            logicSyllogism: '所有{A}都是{B}。所有{B}都是{C}。因此：',
+            logicPattern: '如果{rule1}，且{rule2}，那么得出什么结论？',
             verbalAnalogies: [
                 {q: '手之于手套，正如脚之于：', options: ['脚趾', '鞋子', '袜子', '脚踝'], correct: 1, exp: '手套覆盖手；鞋子覆盖脚。'},
                 {q: '书之于阅读，正如叉子之于：', options: ['厨房', '吃', '烹饪', '食物'], correct: 1, exp: '书用于阅读；叉子用于吃饭。'},
@@ -782,6 +1143,8 @@ const translations = {
         info3: 'समय सीमा: 20 मिनट',
         info4: 'प्रत्येक उत्तर के बाद, अपना वास्तविक समय आईक्यू, प्रतिशतक और जनसंख्या स्थिति देखें',
         info5: 'स्कोरिंग: विचलन आईक्यू (माध्य 100, एसडी 15) वास्तविक समय z-स्कोर गणना के साथ',
+        info6: 'नया: दुनिया भर के परीक्षार्थियों के साथ तुलना के लिए वैश्विक लीडरबोर्ड',
+        info7: 'नया: तर्क पहेलियों, स्मृति और पैटर्न पहचान सहित 8 प्रश्न प्रकार',
         beginBtn: 'मूल्यांकन शुरू करें',
         liveIQLabel: 'वर्तमान आईक्यू', livePercentileLabel: 'प्रतिशतक', liveClassLabel: 'वर्गीकरण', liveRarityLabel: 'दुर्लभता',
         questionCounter: 'प्रश्न {n} में से {total}',
@@ -804,6 +1167,23 @@ const translations = {
         copySuccess: 'परिणाम क्लिपबोर्ड पर कॉपी किए गए!',
         linkCopySuccess: 'लिंक क्लिपबोर्ड पर कॉपी किया गया!',
         shareText: 'मैंने गतिशील आईक्यू मूल्यांकन में {iq} आईक्यू स्कोर किया! यह {percentile}वां प्रतिशतक है — {classification}। इसे स्वयं आजमाएं!',
+        leaderboardTitle: '🏆 वैश्विक लीडरबोर्ड',
+        leaderboardSubtitle: 'दुनिया भर के परीक्षार्थियों के साथ अपने परिणामों की तुलना करें',
+        leaderboardAdd: 'लीडरबोर्ड में जोड़ें',
+        leaderboardView: '🏆 लीडरबोर्ड देखें',
+        leaderboardNamePrompt: 'अपना स्कोर वैश्विक लीडरबोर्ड में सहेजने के लिए अपना नाम दर्ज करें!',
+        leaderboardSave: 'स्कोर सहेजें',
+        leaderboardCancel: 'रद्द करें',
+        leaderboardEmpty: 'अभी तक कोई स्कोर नहीं। परीक्षण देने वाले पहले व्यक्ति बनें!',
+        leaderboardRank: 'रैंक', leaderboardName: 'नाम', leaderboardIQ: 'आईक्यू',
+        leaderboardPercentile: 'प्रतिशतक', leaderboardDate: 'तिथि', leaderboardAccuracy: 'सटीकता',
+        leaderboardTime: 'समय', leaderboardAllTime: 'सभी समय', leaderboardToday: 'आज',
+        leaderboardWeek: 'इस सप्ताह', leaderboardMonth: 'इस महीने',
+        leaderboardYourRank: 'आपकी रैंक', leaderboardTopPlayers: 'शीर्ष खिलाड़ी',
+        leaderboardTotalTests: 'कुल परीक्षण', leaderboardAvgIQ: 'औसत आईक्यू',
+        leaderboardHighest: 'उच्चतम आईक्यू', leaderboardClear: '🗑️ मेरा डेटा साफ़ करें',
+        leaderboardCleared: 'आपका लीडरबोर्ड डेटा साफ़ कर दिया गया है!',
+        leaderboardAdded: 'स्कोर लीडरबोर्ड में जोड़ा गया!',
         classifications: {
             genius: 'प्रतिभा / लगभग पूर्ण', verySuperior: 'बहुत उत्कृष्ट (प्रतिभाशाली)', superior: 'उत्कृष्ट',
             highAverage: 'औसत से ऊपर', average: 'औसत', lowAverage: 'औसत से नीचे',
@@ -824,6 +1204,10 @@ const translations = {
             mathRatio: 'यदि A से B का अनुपात {a}:{b} है, और A = {aM}, तो B क्या है?',
             mathAlgebra: 'यदि {a}x + {b} = {c}, तो x = ?',
             mathSpeed: 'यदि एक कार {time} मिनट में {dist} मील चलती है, तो उसकी गति कितनी mph है?',
+            logicQ: 'कौन सा कथन तार्किक रूप से मान्य है?',
+            memoryQ: 'इस अनुक्रम को याद रखें। {pos} वां तत्व क्या था?',
+            logicSyllogism: 'सभी {A} {B} हैं। सभी {B} {C} हैं। इसलिए:',
+            logicPattern: 'यदि {rule1}, और {rule2}, तो क्या निष्कर्ष निकलता है?',
             verbalAnalogies: [
                 {q: 'हाथ दस्ताने के लिए जैसे पैर है:', options: ['पैर की उंगली', 'जूता', 'मोजा', 'टखना'], correct: 1, exp: 'दस्ताना हाथ को ढकता है; जूता पैर को ढकता है।'},
                 {q: 'किताब पढ़ने के लिए जैसे कांटा है:', options: ['रसोई', 'खाना', 'पकाना', 'भोजन'], correct: 1, exp: 'किताब पढ़ने के लिए है; कांटा खाने के लिए है।'},
@@ -833,6 +1217,535 @@ const translations = {
                 {q: 'बीज पेड़ के लिए जैसे अंडा है:', options: ['पक्षी', 'घोंसला', 'मुर्गी', 'खोल'], correct: 0, exp: 'जीवन चक्र: बीज पेड़ बनता है, अंडा पक्षी बनता है।'},
                 {q: 'पहाड़ ऊँचे के लिए जैसे घाटी है:', options: ['चौड़ा', 'गहरा', 'निचला', 'लंबा'], correct: 2, exp: 'गुण/विलोम: पहाड़ ऊँचा है, घाटी नीची है।'},
                 {q: 'दिन रात के लिए जैसे भोर है:', options: ['सुबह', 'सूर्यास्त', 'संध्या', 'दोपहर'], correct: 2, exp: 'संक्रमण जोड़े: दिन↔रात संक्रमण भोर↔संध्या पर।'}
+            ]
+        }
+    },
+
+    ru: {
+        flag: '🇷🇺', name: 'Русский', rtl: false,
+        langSubtitle: 'Выберите язык',
+        startTitle: '🧠 Динамическая Оценка IQ',
+        startSubtitle: 'Процедурно Сгенерированные Вопросы • Рейтинг в Реальном Времени',
+        infoTitle: 'Как Это Работает',
+        info1: 'Каждый вопрос генерируется случайно — никакие два теста не совпадают',
+        info2: '25 вопросов в 5 когнитивных областях',
+        info3: 'Ограничение по времени: 20 минут',
+        info4: 'После КАЖДОГО ответа смотрите свой IQ, процентиль и положение в населении',
+        info5: 'Оценка: Отклонение IQ (Среднее 100, СКО 15) с расчетом z-score в реальном времени',
+        info6: 'НОВОЕ: Глобальная таблица лидеров для сравнения с участниками по всему миру',
+        info7: 'НОВОЕ: 8 типов вопросов, включая логические головоломки, память и распознавание шаблонов',
+        beginBtn: 'Начать Оценку',
+        liveIQLabel: 'Текущий IQ', livePercentileLabel: 'Процентиль', liveClassLabel: 'Классификация', liveRarityLabel: 'Редкость',
+        questionCounter: 'Вопрос {n} из {total}',
+        timer: 'Время: {time}',
+        prevBtn: '← Назад', nextBtn: 'Далее →', finishBtn: 'Завершить',
+        resultTitle: 'Оценка Завершена', resultSubtitle: 'Ваш окончательный когнитивный профиль',
+        breakdownTitle: 'Итоговый Разбор',
+        lblAnswered: 'Отвеченные Вопросы:', lblCorrect: 'Правильные Ответы:', lblAccuracy: 'Точность:',
+        lblIQ: 'Отклонение IQ:', lblPercentile: 'Популяционный Процентиль:', lblClass: 'Классификация:',
+        lblRarity: 'Редкость:', lblTime: 'Использованное Время:',
+        resultNote: '<strong>Примечание:</strong> Это образовательная симуляция с использованием формулы отклонения IQ: <em>IQ = 100 + 15 × z-score</em>. Официальные тесты IQ должны проводиться квалифицированными психологами в стандартизированных условиях.',
+        restartBtn: '🔄 Новый Тест (Другие Вопросы)', reviewBtn: '📋 Просмотр Ответов',
+        reviewTitle: 'Просмотр Ответов', backBtn: '← Назад к Результатам',
+        yourAnswer: 'Ваш ответ:', correct: 'Правильно:', explanation: 'Объяснение:',
+        notAnswered: 'Нет ответа', skipped: 'Пропущено', incorrect: 'Неправильно',
+        saveBtn: '💾 Сохранить Результат', shareBtn: '🔗 Поделиться', copyBtn: '📋 Копировать Текст',
+        shareModalTitle: 'Поделитесь Вашими Результатами', closeShareBtn: 'Закрыть', copyLinkBtn: 'Копировать',
+        nativeShareLabel: 'Нативный',
+        saveSuccess: 'Результат сохранен как изображение!',
+        copySuccess: 'Результаты скопированы в буфер обмена!',
+        linkCopySuccess: 'Ссылка скопирована в буфер обмена!',
+        shareText: 'Я набрал {iq} IQ в Динамической Оценке IQ! Это {percentile}-й процентиль — {classification}. Попробуйте сами!',
+        leaderboardTitle: '🏆 Глобальная Таблица Лидеров',
+        leaderboardSubtitle: 'Сравните свои результаты с участниками по всему миру',
+        leaderboardAdd: 'Добавить в Таблицу Лидеров',
+        leaderboardView: '🏆 Просмотреть Таблицу Лидеров',
+        leaderboardNamePrompt: 'Введите ваше имя, чтобы сохранить результат в глобальной таблице лидеров!',
+        leaderboardSave: 'Сохранить Результат',
+        leaderboardCancel: 'Отмена',
+        leaderboardEmpty: 'Пока нет результатов. Будьте первым, кто пройдет тест!',
+        leaderboardRank: 'Ранг', leaderboardName: 'Имя', leaderboardIQ: 'IQ',
+        leaderboardPercentile: 'Процентиль', leaderboardDate: 'Дата', leaderboardAccuracy: 'Точность',
+        leaderboardTime: 'Время', leaderboardAllTime: 'За Все Время', leaderboardToday: 'Сегодня',
+        leaderboardWeek: 'На Этой Неделе', leaderboardMonth: 'В Этом Месяце',
+        leaderboardYourRank: 'Ваш Ранг', leaderboardTopPlayers: 'Лучшие Игроки',
+        leaderboardTotalTests: 'Всего Тестов', leaderboardAvgIQ: 'Средний IQ',
+        leaderboardHighest: 'Наивысший IQ', leaderboardClear: '🗑️ Очистить Мои Данные',
+        leaderboardCleared: 'Ваши данные таблицы лидеров очищены!',
+        leaderboardAdded: 'Результат добавлен в таблицу лидеров!',
+        classifications: {
+            genius: 'Гений / Почти Идеальный', verySuperior: 'Очень Высокий (Одаренный)', superior: 'Высокий',
+            highAverage: 'Выше Среднего', average: 'Средний', lowAverage: 'Ниже Среднего',
+            borderline: 'Пограничный', extremelyLow: 'Очень Низкий'
+        },
+        rarity: {
+            '1in1000': '1 из 1,000', '1in100': '1 из 100', '1in50': '1 из 50', '1in20': '1 из 20',
+            '1in10': '1 из 10', '1in6': '1 из 6', '1in2': '1 из 2'
+        },
+        generators: {
+            sequenceQ: 'Какое число завершает последовательность?',
+            letterQ: 'Что следует дальше в шаблоне?',
+            spatialRotation: 'Если {shape} поворачивается на 90° по часовой стрелке на каждом шаге, какое 5-е положение?',
+            spatialMirror: 'Какое зеркальное отражение "{letter}"?',
+            spatialCount: 'Сколько фигур {shape} в: {shapes}?',
+            spatialFold: 'Если сложить бумагу {folds} раз и пробить {holes} отверстие(й), сколько отверстий при разворачивании?',
+            mathPercent: 'Сколько составляет {pct}% от {base}?',
+            mathRatio: 'Если соотношение A к B {a}:{b}, и A = {aM}, то чему равно B?',
+            mathAlgebra: 'Если {a}x + {b} = {c}, то x = ?',
+            mathSpeed: 'Если автомобиль проезжает {dist} миль за {time} минут, какова его скорость в mph?',
+            logicQ: 'Какое утверждение логически верно?',
+            memoryQ: 'Запомните эту последовательность. Каким был {pos}-й элемент?',
+            logicSyllogism: 'Все {A} являются {B}. Все {B} являются {C}. Следовательно:',
+            logicPattern: 'Если {rule1}, и {rule2}, то какой вывод?',
+            verbalAnalogies: [
+                {q: 'Рука к Перчатке, как Нога к:', options: ['Палец', 'Ботинок', 'Носок', 'Лодыжка'], correct: 1, exp: 'Перчатка покрывает руку; ботинок покрывает ногу.'},
+                {q: 'Книга к Чтению, как Вилка к:', options: ['Кухня', 'Еда', 'Готовка', 'Пища'], correct: 1, exp: 'Книга используется для чтения; вилка используется для еды.'},
+                {q: 'Горячий к Холодному, как Быстрый к:', options: ['Быстро', 'Медленный', 'Скорость', 'Стремительный'], correct: 1, exp: 'Отношение антонимов: Горячий ↔ Холодный, Быстрый ↔ Медленный.'},
+                {q: 'Доктор к Больнице, как Учитель к:', options: ['Книга', 'Школа', 'Ученик', 'Класс'], correct: 1, exp: 'Отношение места работы: Доктор работает в Больнице, Учитель работает в Школе.'},
+                {q: 'Пианино к Музыке, как Кисть к:', options: ['Краска', 'Холст', 'Искусство', 'Цвет'], correct: 2, exp: 'Инструмент и область: Пианино создает Музыку, Кисть создает Искусство.'},
+                {q: 'Семя к Дереву, как Яйцо к:', options: ['Птица', 'Гнездо', 'Курица', 'Скорлупа'], correct: 0, exp: 'Жизненный цикл: Семя растет в Дерево, Яйцо вылупляется в Птицу.'},
+                {q: 'Гора к Высокому, как Долина к:', options: ['Широкий', 'Глубокий', 'Низкий', 'Длинный'], correct: 2, exp: 'Атрибут/антоним: Гора Высокая, Долина Низкая.'},
+                {q: 'День к Ночи, как Рассвет к:', options: ['Утро', 'Закат', 'Сумерки', 'Полдень'], correct: 2, exp: 'Переходные пары: День↔Ночь переход при Рассвете↔Сумерках.'}
+            ]
+        }
+    },
+    pt: {
+        flag: '🇵🇹', name: 'Português', rtl: false,
+        langSubtitle: 'Selecione seu idioma',
+        startTitle: '🧠 Avaliação Dinâmica de QI',
+        startSubtitle: 'Perguntas Geradas Proceduralmente • Posição em Tempo Real',
+        infoTitle: 'Como Funciona',
+        info1: 'Cada pergunta é gerada aleatoriamente — nenhum teste é igual',
+        info2: '25 perguntas em 5 domínios cognitivos',
+        info3: 'Limite de tempo: 20 minutos',
+        info4: 'Após CADA resposta, veja seu QI, percentil e posição em tempo real',
+        info5: 'Pontuação: QI de Desvio (Média 100, DP 15) com cálculo z-score em tempo real',
+        info6: 'NOVO: Classificação global para comparar com outros participantes mundialmente',
+        info7: 'NOVO: 8 tipos de perguntas incluindo quebra-cabeças lógicos, memória e reconhecimento de padrões',
+        beginBtn: 'Iniciar Avaliação',
+        liveIQLabel: 'QI Atual', livePercentileLabel: 'Percentil', liveClassLabel: 'Classificação', liveRarityLabel: 'Raridade',
+        questionCounter: 'Pergunta {n} de {total}',
+        timer: 'Tempo: {time}',
+        prevBtn: '← Anterior', nextBtn: 'Próxima →', finishBtn: 'Finalizar',
+        resultTitle: 'Avaliação Concluída', resultSubtitle: 'Seu perfil cognitivo final',
+        breakdownTitle: 'Detalhamento Final',
+        lblAnswered: 'Perguntas Respondidas:', lblCorrect: 'Respostas Corretas:', lblAccuracy: 'Taxa de Precisão:',
+        lblIQ: 'QI de Desvio:', lblPercentile: 'Percentil Populacional:', lblClass: 'Classificação:',
+        lblRarity: 'Raridade:', lblTime: 'Tempo Utilizado:',
+        resultNote: '<strong>Nota:</strong> Esta é uma simulação educacional usando a fórmula de QI de Desvio: <em>QI = 100 + 15 × z-score</em>. Testes oficiais de QI devem ser administrados por psicólogos qualificados em condições padronizadas.',
+        restartBtn: '🔄 Novo Teste (Perguntas Diferentes)', reviewBtn: '📋 Revisar Respostas',
+        reviewTitle: 'Revisão de Respostas', backBtn: '← Voltar aos Resultados',
+        yourAnswer: 'Sua resposta:', correct: 'Correto:', explanation: 'Explicação:',
+        notAnswered: 'Sem resposta', skipped: 'Pulada', incorrect: 'Incorreta',
+        saveBtn: '💾 Salvar Resultado', shareBtn: '🔗 Compartilhar', copyBtn: '📋 Copiar Texto',
+        shareModalTitle: 'Compartilhe Seus Resultados', closeShareBtn: 'Fechar', copyLinkBtn: 'Copiar',
+        nativeShareLabel: 'Nativo',
+        saveSuccess: 'Resultado salvo como imagem!',
+        copySuccess: 'Resultados copiados para a área de transferência!',
+        linkCopySuccess: 'Link copiado para a área de transferência!',
+        shareText: 'Eu pontuei {iq} QI na Avaliação Dinâmica de QI! Isso é o percentil {percentile} — {classification}. Tente você mesmo!',
+        leaderboardTitle: '🏆 Classificação Global',
+        leaderboardSubtitle: 'Compare seus resultados com participantes de todo o mundo',
+        leaderboardAdd: 'Adicionar à Classificação',
+        leaderboardView: '🏆 Ver Classificação',
+        leaderboardNamePrompt: 'Digite seu nome para salvar sua pontuação na classificação global!',
+        leaderboardSave: 'Salvar Pontuação',
+        leaderboardCancel: 'Cancelar',
+        leaderboardEmpty: 'Ainda não há pontuações. Seja o primeiro a fazer o teste!',
+        leaderboardRank: 'Rank', leaderboardName: 'Nome', leaderboardIQ: 'QI',
+        leaderboardPercentile: 'Percentil', leaderboardDate: 'Data', leaderboardAccuracy: 'Precisão',
+        leaderboardTime: 'Tempo', leaderboardAllTime: 'Todo Tempo', leaderboardToday: 'Hoje',
+        leaderboardWeek: 'Esta Semana', leaderboardMonth: 'Este Mês',
+        leaderboardYourRank: 'Seu Rank', leaderboardTopPlayers: 'Melhores Jogadores',
+        leaderboardTotalTests: 'Total de Testes', leaderboardAvgIQ: 'QI Médio',
+        leaderboardHighest: 'QI Mais Alto', leaderboardClear: '🗑️ Limpar Meus Dados',
+        leaderboardCleared: 'Seus dados da classificação foram limpos!',
+        leaderboardAdded: 'Pontuação adicionada à classificação!',
+        classifications: {
+            genius: 'Gênio / Quase Perfeito', verySuperior: 'Muito Superior (Dotado)', superior: 'Superior',
+            highAverage: 'Acima da Média', average: 'Médio', lowAverage: 'Abaixo da Média',
+            borderline: 'Limítrofe', extremelyLow: 'Extremamente Baixo'
+        },
+        rarity: {
+            '1in1000': '1 em 1,000', '1in100': '1 em 100', '1in50': '1 em 50', '1in20': '1 em 20',
+            '1in10': '1 em 10', '1in6': '1 em 6', '1in2': '1 em 2'
+        },
+        generators: {
+            sequenceQ: 'Qual número completa a sequência?',
+            letterQ: 'O que vem a seguir no padrão?',
+            spatialRotation: 'Se {shape} girar 90° no sentido horário a cada passo, qual é a 5ª posição?',
+            spatialMirror: 'Qual é a imagem espelhada de "{letter}"?',
+            spatialCount: 'Quantas formas {shape} há em: {shapes}?',
+            spatialFold: 'Se você dobrar um papel {folds} vezes e perfurar {holes} buraco(s), quantos buracos ao desdobrar?',
+            mathPercent: 'Quanto é {pct}% de {base}?',
+            mathRatio: 'Se a razão de A para B é {a}:{b}, e A = {aM}, qual é B?',
+            mathAlgebra: 'Se {a}x + {b} = {c}, então x = ?',
+            mathSpeed: 'Se um carro viaja {dist} milhas em {time} minutos, qual é sua velocidade em mph?',
+            logicQ: 'Qual afirmação é logicamente válida?',
+            memoryQ: 'Memorize esta sequência. Qual era o {pos}º item?',
+            logicSyllogism: 'Todos os {A} são {B}. Todos os {B} são {C}. Portanto:',
+            logicPattern: 'Se {rule1}, e {rule2}, então qual conclusão?',
+            verbalAnalogies: [
+                {q: 'Mão é para Luva como Pé é para:', options: ['Dedo', 'Sapato', 'Meia', 'Tornozelo'], correct: 1, exp: 'Uma luva cobre uma mão; um sapato cobre um pé.'},
+                {q: 'Livro é para Ler como Garfo é para:', options: ['Cozinha', 'Comer', 'Cozinhar', 'Comida'], correct: 1, exp: 'Um livro é usado para ler; um garfo é usado para comer.'},
+                {q: 'Quente é para Frio como Rápido é para:', options: ['Veloz', 'Lento', 'Velocidade', 'Rápido'], correct: 1, exp: 'Relação de antônimos: Quente ↔ Frio, Rápido ↔ Lento.'},
+                {q: 'Médico é para Hospital como Professor é para:', options: ['Livro', 'Escola', 'Estudante', 'Classe'], correct: 1, exp: 'Relação de local de trabalho: Médico trabalha no Hospital, Professor trabalha na Escola.'},
+                {q: 'Piano é para Música como Pincel é para:', options: ['Pintura', 'Tela', 'Arte', 'Cor'], correct: 2, exp: 'Ferramenta e domínio: Piano cria Música, Pincel cria Arte.'},
+                {q: 'Semente é para Árvore como Ovo é para:', options: ['Pássaro', 'Ninho', 'Galinha', 'Casca'], correct: 0, exp: 'Ciclo de vida: Semente cresce em Árvore, Ovo choca em Pássaro.'},
+                {q: 'Montanha é para Alto como Vale é para:', options: ['Largo', 'Profundo', 'Baixo', 'Longo'], correct: 2, exp: 'Atributo/antônimo: Montanha é Alta, Vale é Baixo.'},
+                {q: 'Dia é para Noite como Amanhecer é para:', options: ['Manhã', 'Pôr do Sol', 'Crepúsculo', 'Meio-dia'], correct: 2, exp: 'Pares de transição: Dia↔Noite transição no Amanhecer↔Crepúsculo.'}
+            ]
+        }
+    },
+    ja: {
+        flag: '🇯🇵', name: '日本語', rtl: false,
+        langSubtitle: '言語を選択してください',
+        startTitle: '🧠 ダイナミックIQ評価',
+        startSubtitle: '手続き的に生成された問題 • リアルタイム順位',
+        infoTitle: '仕組み',
+        info1: '各問題はランダムに生成されます — 同じテストは2度ありません',
+        info2: '5つの認知領域で25問',
+        info3: '制限時間：20分',
+        info4: '各回答後、リアルタイムでIQ、パーセンタイル、人口順位を確認',
+        info5: '採点：偏差IQ（平均100、標準偏差15）リアルタイムzスコア計算',
+        info6: '新機能：世界中の受験者と比較するグローバルリーダーボード',
+        info7: '新機能：論理パズル、記憶、パターン認識を含む8種類の問題タイプ',
+        beginBtn: '評価を開始',
+        liveIQLabel: '現在のIQ', livePercentileLabel: 'パーセンタイル', liveClassLabel: '分類', liveRarityLabel: '希少性',
+        questionCounter: '問題 {n} / {total}',
+        timer: '時間：{time}',
+        prevBtn: '← 前へ', nextBtn: '次へ →', finishBtn: '完了',
+        resultTitle: '評価完了', resultSubtitle: 'あなたの最終認知プロフィール',
+        breakdownTitle: '最終内訳',
+        lblAnswered: '回答した問題：', lblCorrect: '正解数：', lblAccuracy: '正確率：',
+        lblIQ: '偏差IQ：', lblPercentile: '人口パーセンタイル：', lblClass: '分類：',
+        lblRarity: '希少性：', lblTime: '使用時間：',
+        resultNote: '<strong>注意：</strong>これは偏差IQの公式を使用した教育用シミュレーションです：<em>IQ = 100 + 15 × zスコア</em>。公式のIQテストは、標準化された条件下で資格のある心理学者によって実施される必要があります。',
+        restartBtn: '🔄 新しいテスト（異なる問題）', reviewBtn: '📋 回答を確認',
+        reviewTitle: '回答確認', backBtn: '← 結果に戻る',
+        yourAnswer: 'あなたの回答：', correct: '正解：', explanation: '説明：',
+        notAnswered: '未回答', skipped: 'スキップ', incorrect: '不正解',
+        saveBtn: '💾 結果を保存', shareBtn: '🔗 共有', copyBtn: '📋 テキストをコピー',
+        shareModalTitle: '結果を共有', closeShareBtn: '閉じる', copyLinkBtn: 'コピー',
+        nativeShareLabel: 'ネイティブ',
+        saveSuccess: '結果を画像として保存しました！',
+        copySuccess: '結果をクリップボードにコピーしました！',
+        linkCopySuccess: 'リンクをクリップボードにコピーしました！',
+        shareText: 'ダイナミックIQ評価で{iq}IQを獲得しました！これは{percentile}パーセンタイル — {classification}です。あなたも試してみてください！',
+        leaderboardTitle: '🏆 グローバルリーダーボード',
+        leaderboardSubtitle: '世界中の受験者と結果を比較',
+        leaderboardAdd: 'リーダーボードに追加',
+        leaderboardView: '🏆 リーダーボードを見る',
+        leaderboardNamePrompt: 'グローバルリーダーボードにスコアを保存するには、名前を入力してください！',
+        leaderboardSave: 'スコアを保存',
+        leaderboardCancel: 'キャンセル',
+        leaderboardEmpty: 'まだスコアがありません。最初にテストを受けてください！',
+        leaderboardRank: '順位', leaderboardName: '名前', leaderboardIQ: 'IQ',
+        leaderboardPercentile: 'パーセンタイル', leaderboardDate: '日付', leaderboardAccuracy: '正確率',
+        leaderboardTime: '時間', leaderboardAllTime: '全期間', leaderboardToday: '今日',
+        leaderboardWeek: '今週', leaderboardMonth: '今月',
+        leaderboardYourRank: 'あなたの順位', leaderboardTopPlayers: 'トッププレイヤー',
+        leaderboardTotalTests: '総テスト数', leaderboardAvgIQ: '平均IQ',
+        leaderboardHighest: '最高IQ', leaderboardClear: '🗑️ 自分のデータを消去',
+        leaderboardCleared: 'リーダーボードのデータを消去しました！',
+        leaderboardAdded: 'スコアがリーダーボードに追加されました！',
+        classifications: {
+            genius: '天才 / ほぼ完璧', verySuperior: '非常に優秀（才能あり）', superior: '優秀',
+            highAverage: '平均以上', average: '平均', lowAverage: '平均以下',
+            borderline: '境界', extremelyLow: '極めて低い'
+        },
+        rarity: {
+            '1in1000': '1,000分の1', '1in100': '100分の1', '1in50': '50分の1', '1in20': '20分の1',
+            '1in10': '10分の1', '1in6': '6分の1', '1in2': '2分の1'
+        },
+        generators: {
+            sequenceQ: 'どの数字が数列を完成させますか？',
+            letterQ: 'パターンの次は何ですか？',
+            spatialRotation: '{shape}が各ステップで90°時計回りに回転する場合、5番目の位置は何ですか？',
+            spatialMirror: '"{letter}"の鏡像は何ですか？',
+            spatialCount: '{shapes}の中に{shape}の形はいくつありますか？',
+            spatialFold: '紙を{folds}回折り、{holes}個の穴を開けると、広げたときに何個の穴がありますか？',
+            mathPercent: '{base}の{pct}%はいくつですか？',
+            mathRatio: 'AとBの比率が{a}:{b}で、A = {aM}の場合、Bはいくつですか？',
+            mathAlgebra: '{a}x + {b} = {c}の場合、x = ？',
+            mathSpeed: '車が{time}分で{dist}マイル走る場合、時速は何mphですか？',
+            logicQ: 'どの記述が論理的に有効ですか？',
+            memoryQ: 'この数列を覚えてください。{pos}番目の項目は何でしたか？',
+            logicSyllogism: 'すべての{A}は{B}です。すべての{B}は{C}です。したがって：',
+            logicPattern: '{rule1}、かつ{rule2}の場合、どの結論が導けますか？',
+            verbalAnalogies: [
+                {q: '手は手袋に対して、足は：', options: ['指', '靴', '靴下', '足首'], correct: 1, exp: '手袋は手を覆う；靴は足を覆う。'},
+                {q: '本は読書に対して、フォークは：', options: ['キッチン', '食事', '料理', '食べ物'], correct: 1, exp: '本は読むために使う；フォークは食べるために使う。'},
+                {q: '熱は冷に対して、速は：', options: ['速い', '遅い', '速度', '迅速'], correct: 1, exp: '反意語関係：熱↔冷、速↔遅。'},
+                {q: '医者は病院に対して、教師は：', options: ['本', '学校', '生徒', 'クラス'], correct: 1, exp: '職場関係：医者は病院で働く、教師は学校で働く。'},
+                {q: 'ピアノは音楽に対して、筆は：', options: ['絵画', 'キャンバス', '芸術', '色'], correct: 2, exp: '道具と領域：ピアノは音楽を生む、筆は芸術を生む。'},
+                {q: '種は木に対して、卵は：', options: ['鳥', '巣', '鶏', '殻'], correct: 0, exp: 'ライフサイクル：種は木に成長、卵は鳥に孵る。'},
+                {q: '山は高に対して、谷は：', options: ['広', '深', '低', '長'], correct: 2, exp: '属性/反意語：山は高い、谷は低い。'},
+                {q: '昼は夜に対して、夜明けは：', options: ['朝', '日没', '黄昏', '正午'], correct: 2, exp: '移行ペア：昼↔夜の移行は夜明け↔黄昏。'}
+            ]
+        }
+    },
+    ko: {
+        flag: '🇰🇷', name: '한국어', rtl: false,
+        langSubtitle: '언어를 선택하세요',
+        startTitle: '🧠 동적 IQ 평가',
+        startSubtitle: '절차적으로 생성된 문제 • 실시간 순위',
+        infoTitle: '작동 방식',
+        info1: '모든 문제는 무작위로 생성됩니다 — 두 번의 테스트가 동일하지 않습니다',
+        info2: '5개 인지 영역의 25개 문제',
+        info3: '시간 제한: 20분',
+        info4: '각 답변 후 실시간으로 IQ, 백분위수, 인구 순위를 확인하세요',
+        info5: '채점: 편차 IQ (평균 100, 표준편차 15) 실시간 z-score 계산',
+        info6: '신규: 전 세계 응시자와 비교할 수 있는 글로벌 리더보드',
+        info7: '신규: 논리 퍼즐, 기억력, 패턴 인식을 포함한 8가지 문제 유형',
+        beginBtn: '평가 시작',
+        liveIQLabel: '현재 IQ', livePercentileLabel: '백분위수', liveClassLabel: '분류', liveRarityLabel: '희소성',
+        questionCounter: '문제 {n} / {total}',
+        timer: '시간: {time}',
+        prevBtn: '← 이전', nextBtn: '다음 →', finishBtn: '완료',
+        resultTitle: '평가 완료', resultSubtitle: '최종 인지 프로필',
+        breakdownTitle: '최종 분석',
+        lblAnswered: '답변한 문제:', lblCorrect: '정답 수:', lblAccuracy: '정확도:',
+        lblIQ: '편차 IQ:', lblPercentile: '인구 백분위수:', lblClass: '분류:',
+        lblRarity: '희소성:', lblTime: '사용 시간:',
+        resultNote: '<strong>참고:</strong> 이것은 편차 IQ 공식을 사용한 교육 시뮬레이션입니다: <em>IQ = 100 + 15 × z-score</em>. 공식 IQ 테스트는 표준화된 조건에서 자격을 갖춘 심리학자가 시행해야 합니다.',
+        restartBtn: '🔄 새 테스트 (다른 문제)', reviewBtn: '📋 답변 검토',
+        reviewTitle: '답변 검토', backBtn: '← 결과로 돌아가기',
+        yourAnswer: '당신의 답변:', correct: '정답:', explanation: '설명:',
+        notAnswered: '미응답', skipped: '건너뜀', incorrect: '오답',
+        saveBtn: '💾 결과 저장', shareBtn: '🔗 공유', copyBtn: '📋 텍스트 복사',
+        shareModalTitle: '결과 공유', closeShareBtn: '닫기', copyLinkBtn: '복사',
+        nativeShareLabel: '네이티브',
+        saveSuccess: '결과가 이미지로 저장되었습니다!',
+        copySuccess: '결과가 클립보드에 복사되었습니다!',
+        linkCopySuccess: '링크가 클립보드에 복사되었습니다!',
+        shareText: '동적 IQ 평가에서 {iq} IQ를 획득했습니다! 이는 {percentile}번째 백분위수 — {classification}입니다. 직접 도전해보세요!',
+        leaderboardTitle: '🏆 글로벌 리더보드',
+        leaderboardSubtitle: '전 세계 응시자와 결과 비교',
+        leaderboardAdd: '리더보드에 추가',
+        leaderboardView: '🏆 리더보드 보기',
+        leaderboardNamePrompt: '글로벌 리더보드에 점수를 저장하려면 이름을 입력하세요!',
+        leaderboardSave: '점수 저장',
+        leaderboardCancel: '취소',
+        leaderboardEmpty: '아직 점수가 없습니다. 테스트를 처음 응시하세요!',
+        leaderboardRank: '순위', leaderboardName: '이름', leaderboardIQ: 'IQ',
+        leaderboardPercentile: '백분위수', leaderboardDate: '날짜', leaderboardAccuracy: '정확도',
+        leaderboardTime: '시간', leaderboardAllTime: '전체 기간', leaderboardToday: '오늘',
+        leaderboardWeek: '이번 주', leaderboardMonth: '이번 달',
+        leaderboardYourRank: '당신의 순위', leaderboardTopPlayers: '상위 플레이어',
+        leaderboardTotalTests: '총 테스트 수', leaderboardAvgIQ: '평균 IQ',
+        leaderboardHighest: '최고 IQ', leaderboardClear: '🗑️ 내 데이터 지우기',
+        leaderboardCleared: '리더보드 데이터가 삭제되었습니다!',
+        leaderboardAdded: '점수가 리더보드에 추가되었습니다!',
+        classifications: {
+            genius: '천재 / 거의 완벽', verySuperior: '매우 우수 (재능)', superior: '우수',
+            highAverage: '평균 이상', average: '평균', lowAverage: '평균 이하',
+            borderline: '경계', extremelyLow: '매우 낮음'
+        },
+        rarity: {
+            '1in1000': '1,000분의 1', '1in100': '100분의 1', '1in50': '50분의 1', '1in20': '20분의 1',
+            '1in10': '10분의 1', '1in6': '6분의 1', '1in2': '2분의 1'
+        },
+        generators: {
+            sequenceQ: '어떤 숫자가 수열을 완성합니까?',
+            letterQ: '패턴의 다음은 무엇입니까?',
+            spatialRotation: '{shape}가 각 단계에서 90° 시계 방향으로 회전하면 5번째 위치는 무엇입니까?',
+            spatialMirror: '"{letter}"의 거울상은 무엇입니까?',
+            spatialCount: '{shapes}에 {shape} 모양이 몇 개 있습니까?',
+            spatialFold: '종이를 {folds}번 접고 {holes}개의 구멍을 뚫으면 펼쳤을 때 구멍이 몇 개입니까?',
+            mathPercent: '{base}의 {pct}%는 얼마입니까?',
+            mathRatio: 'A와 B의 비율이 {a}:{b}이고 A = {aM}일 때 B는 얼마입니까?',
+            mathAlgebra: '{a}x + {b} = {c}일 때 x = ?',
+            mathSpeed: '자동차가 {time}분에 {dist}마일을 주행하면 시속은 몇 mph입니까?',
+            logicQ: '어떤 진술이 논리적으로 유효합니까?',
+            memoryQ: '이 수열을 기억하세요. {pos}번째 항목은 무엇이었습니까?',
+            logicSyllogism: '모든 {A}는 {B}입니다. 모든 {B}는 {C}입니다. 따라서:',
+            logicPattern: '{rule1}이고 {rule2}이면 어떤 결론이 나옵니까?',
+            verbalAnalogies: [
+                {q: '손은 장갑에 대해 발은:', options: ['발가락', '신발', '양말', '발목'], correct: 1, exp: '장갑은 손을 덮습니다; 신발은 발을 덮습니다.'},
+                {q: '책은 읽기에 대해 포크는:', options: ['부엌', '먹기', '요리', '음식'], correct: 1, exp: '책은 읽기 위해 사용됩니다; 포크는 먹기 위해 사용됩니다.'},
+                {q: '뜨거움은 차가움에 대해 빠른은:', options: ['빠른', '느린', '속도', '신속한'], correct: 1, exp: '반의어 관계: 뜨거움↔차가움, 빠른↔느린.'},
+                {q: '의사는 병원에 대해 선생님은:', options: ['책', '학교', '학생', '반'], correct: 1, exp: '직장 관계: 의사는 병원에서 일하고, 선생님은 학교에서 일합니다.'},
+                {q: '피아노는 음악에 대해 붓은:', options: ['그림', '캔버스', '예술', '색'], correct: 2, exp: '도구와 영역: 피아노는 음악을 만들고, 붓은 예술을 만듭니다.'},
+                {q: '씨앗은 나무에 대해 알은:', options: ['새', '둥지', '닭', '껍질'], correct: 0, exp: '생명주기: 씨앗은 나무로 자라고, 알은 새로 부화합니다.'},
+                {q: '산은 높음에 대해 골짜기는:', options: ['넓은', '깊은', '낮은', '긴'], correct: 2, exp: '속성/반의어: 산은 높고, 골짜기는 낮습니다.'},
+                {q: '낮은 밤에 대해 새벽은:', options: ['아침', '일몰', '황혼', '정오'], correct: 2, exp: '전환 쌍: 낮↔밤 전환은 새벽↔황혼에서 일어납니다.'}
+            ]
+        }
+    },
+    tr: {
+        flag: '🇹🇷', name: 'Türkçe', rtl: false,
+        langSubtitle: 'Dilinizi seçin',
+        startTitle: '🧠 Dinamik IQ Değerlendirmesi',
+        startSubtitle: 'Prosedürel Olarak Oluşturulan Sorular • Gerçek Zamanlı Sıralama',
+        infoTitle: 'Nasıl Çalışır',
+        info1: 'Her soru rastgele oluşturulur — hiçbir iki test aynı değildir',
+        info2: '5 bilişsel alanda 25 soru',
+        info3: 'Süre sınırı: 20 dakika',
+        info4: 'HER cevaptan sonra canlı IQ, yüzdelik dilim ve nüfus sıralamanızı görün',
+        info5: 'Puanlama: Sapma IQ (Ortalama 100, SS 15) gerçek zamanlı z-skoru hesaplaması',
+        info6: 'YENİ: Dünya genelindeki diğer katılımcılarla karşılaştırma için global liderlik tablosu',
+        info7: 'YENİ: Mantık bulmacaları, hafıza ve desen tanıma dahil 8 soru türü',
+        beginBtn: 'Değerlendirmeyi Başlat',
+        liveIQLabel: 'Mevcut IQ', livePercentileLabel: 'Yüzdelik Dilim', liveClassLabel: 'Sınıflandırma', liveRarityLabel: 'Nadirlik',
+        questionCounter: 'Soru {n} / {total}',
+        timer: 'Süre: {time}',
+        prevBtn: '← Önceki', nextBtn: 'Sonraki →', finishBtn: 'Bitir',
+        resultTitle: 'Değerlendirme Tamamlandı', resultSubtitle: 'Nihai bilişsel profiliniz',
+        breakdownTitle: 'Nihai Ayrıntılar',
+        lblAnswered: 'Cevaplanan Sorular:', lblCorrect: 'Doğru Cevaplar:', lblAccuracy: 'Doğruluk Oranı:',
+        lblIQ: 'Sapma IQ:', lblPercentile: 'Nüfus Yüzdelik Dilimi:', lblClass: 'Sınıflandırma:',
+        lblRarity: 'Nadirlik:', lblTime: 'Kullanılan Süre:',
+        resultNote: '<strong>Not:</strong> Bu, Sapma IQ formülü kullanılarak yapılan bir eğitim simülasyonudur: <em>IQ = 100 + 15 × z-skoru</em>. Resmi IQ testleri, standart koşullar altında nitelikli psikologlar tarafından yönetilmelidir.',
+        restartBtn: '🔄 Yeni Test (Farklı Sorular)', reviewBtn: '📋 Cevapları İncele',
+        reviewTitle: 'Cevap İncelemesi', backBtn: '← Sonuçlara Dön',
+        yourAnswer: 'Cevabınız:', correct: 'Doğru:', explanation: 'Açıklama:',
+        notAnswered: 'Cevap yok', skipped: 'Atlandı', incorrect: 'Yanlış',
+        saveBtn: '💾 Sonucu Kaydet', shareBtn: '🔗 Paylaş', copyBtn: '📋 Metni Kopyala',
+        shareModalTitle: 'Sonuçlarınızı Paylaşın', closeShareBtn: 'Kapat', copyLinkBtn: 'Kopyala',
+        nativeShareLabel: 'Yerel',
+        saveSuccess: 'Sonuç görsel olarak kaydedildi!',
+        copySuccess: 'Sonuçlar panoya kopyalandı!',
+        linkCopySuccess: 'Bağlantı panoya kopyalandı!',
+        shareText: 'Dinamik IQ Değerlendirmesinde {iq} IQ puan aldım! Bu {percentile}. yüzdelik dilim — {classification}. Siz de deneyin!',
+        leaderboardTitle: '🏆 Global Liderlik Tablosu',
+        leaderboardSubtitle: 'Sonuçlarınızı dünya genelindeki katılımcılarla karşılaştırın',
+        leaderboardAdd: 'Liderlik Tablosuna Ekle',
+        leaderboardView: '🏆 Liderlik Tablosunu Gör',
+        leaderboardNamePrompt: 'Puanınızı global liderlik tablosuna kaydetmek için adınızı girin!',
+        leaderboardSave: 'Puanı Kaydet',
+        leaderboardCancel: 'İptal',
+        leaderboardEmpty: 'Henüz puan yok. Testi ilk siz verin!',
+        leaderboardRank: 'Sıra', leaderboardName: 'İsim', leaderboardIQ: 'IQ',
+        leaderboardPercentile: 'Yüzdelik Dilim', leaderboardDate: 'Tarih', leaderboardAccuracy: 'Doğruluk',
+        leaderboardTime: 'Süre', leaderboardAllTime: 'Tüm Zamanlar', leaderboardToday: 'Bugün',
+        leaderboardWeek: 'Bu Hafta', leaderboardMonth: 'Bu Ay',
+        leaderboardYourRank: 'Sıranız', leaderboardTopPlayers: 'En İyi Oyuncular',
+        leaderboardTotalTests: 'Toplam Test', leaderboardAvgIQ: 'Ortalama IQ',
+        leaderboardHighest: 'En Yüksek IQ', leaderboardClear: '🗑️ Verilerimi Temizle',
+        leaderboardCleared: 'Liderlik tablosu verileriniz temizlendi!',
+        leaderboardAdded: 'Puan liderlik tablosuna eklendi!',
+        classifications: {
+            genius: 'Deha / Neredeyse Mükemmel', verySuperior: 'Çok Üstün (Yetenekli)', superior: 'Üstün',
+            highAverage: 'Ortalamanın Üstünde', average: 'Ortalama', lowAverage: 'Ortalamanın Altında',
+            borderline: 'Sınır', extremelyLow: 'Aşırı Düşük'
+        },
+        rarity: {
+            '1in1000': '1,000\'de 1', '1in100': '100\'de 1', '1in50': '50\'de 1', '1in20': '20\'de 1',
+            '1in10': '10\'da 1', '1in6': '6\'da 1', '1in2': '2\'de 1'
+        },
+        generators: {
+            sequenceQ: 'Diziyi tamamlayan sayı hangisidir?',
+            letterQ: 'Desende sıradaki nedir?',
+            spatialRotation: '{shape} her adımda saat yönünde 90° dönerse, 5. pozisyon nedir?',
+            spatialMirror: '"{letter}"\'nin ayna görüntüsü nedir?',
+            spatialCount: '{shapes} içinde kaç tane {shape} şekli var?',
+            spatialFold: 'Bir kağıdı {folds} kez katlayıp {holes} delik açarsanız, açıldığında kaç delik olur?',
+            mathPercent: '{base}\'nin {pct}%\'si kaçtır?',
+            mathRatio: 'A\'nın B\'ye oranı {a}:{b} ve A = {aM} ise, B nedir?',
+            mathAlgebra: '{a}x + {b} = {c} ise, x = ?',
+            mathSpeed: 'Bir araba {time} dakikada {dist} mil giderse, hızı saatte kaç mph?',
+            logicQ: 'Hangi ifade mantıksal olarak geçerlidir?',
+            memoryQ: 'Bu diziyi ezberleyin. {pos}. öğe neydi?',
+            logicSyllogism: 'Tüm {A} {B}\'dir. Tüm {B} {C}\'dir. Dolayısıyla:',
+            logicPattern: '{rule1} ve {rule2} ise, o zaman ne sonuç çıkar?',
+            verbalAnalogies: [
+                {q: 'El Eldiven için ayak:', options: ['Parmak', 'Ayakkabı', 'Çorap', 'Ayak Bileği'], correct: 1, exp: 'Eldiven eli örter; ayakkabı ayağı örter.'},
+                {q: 'Kitap Okumak için çatal:', options: ['Mutfak', 'Yemek', 'Pişirmek', 'Yiyecek'], correct: 1, exp: 'Kitap okumak için kullanılır; çatal yemek için kullanılır.'},
+                {q: 'Sıcak Soğuk için hızlı:', options: ['Hızlı', 'Yavaş', 'Hız', 'Süratli'], correct: 1, exp: 'Zıt anlamlı ilişki: Sıcak ↔ Soğuk, Hızlı ↔ Yavaş.'},
+                {q: 'Doktor Hastane için öğretmen:', options: ['Kitap', 'Okul', 'Öğrenci', 'Sınıf'], correct: 1, exp: 'İş yeri ilişkisi: Doktor hastanede çalışır, öğretmen okulda çalışır.'},
+                {q: 'Piyano Müzik için fırça:', options: ['Boya', 'Tuval', 'Sanat', 'Renk'], correct: 2, exp: 'Araç ve alan: Piyano müzik yaratır, fırça sanat yaratır.'},
+                {q: 'Tohum Ağaç için yumurta:', options: ['Kuş', 'Yuva', 'Tavuk', 'Kabuk'], correct: 0, exp: 'Yaşam döngüsü: Tohum ağaca büyür, yumurta kuşa döner.'},
+                {q: 'Dağ Yüksek için vadi:', options: ['Geniş', 'Derin', 'Alçak', 'Uzun'], correct: 2, exp: 'Özellik/zıt: Dağ yüksektir, vadi alçaktır.'},
+                {q: 'Gün Gece için şafak:', options: ['Sabah', 'Gün Batımı', 'Alacakaranlık', 'Öğle'], correct: 2, exp: 'Geçiş çiftleri: Gün↔Gece geçişi Şafak↔Alacakaranlık.'}
+            ]
+        }
+    },
+    it: {
+        flag: '🇮🇹', name: 'Italiano', rtl: false,
+        langSubtitle: 'Seleziona la tua lingua',
+        startTitle: '🧠 Valutazione IQ Dinamica',
+        startSubtitle: 'Domande Generate Proceduralmente • Posizione in Tempo Reale',
+        infoTitle: 'Come Funziona',
+        info1: 'Ogni domanda è generata casualmente — nessun test è mai uguale',
+        info2: '25 domande in 5 domini cognitivi',
+        info3: 'Limite di tempo: 20 minuti',
+        info4: 'Dopo OGNI risposta, vedi il tuo IQ, percentile e posizione in tempo reale',
+        info5: 'Punteggio: Deviazione IQ (Media 100, DS 15) con calcolo z-score in tempo reale',
+        info6: 'NUOVO: Classifica globale per confrontarti con altri partecipanti in tutto il mondo',
+        info7: 'NUOVO: 8 tipi di domande inclusi enigmi logici, memoria e riconoscimento di pattern',
+        beginBtn: 'Inizia Valutazione',
+        liveIQLabel: 'IQ Attuale', livePercentileLabel: 'Percentile', liveClassLabel: 'Classificazione', liveRarityLabel: 'Rarità',
+        questionCounter: 'Domanda {n} di {total}',
+        timer: 'Tempo: {time}',
+        prevBtn: '← Precedente', nextBtn: 'Successiva →', finishBtn: 'Termina',
+        resultTitle: 'Valutazione Completata', resultSubtitle: 'Il tuo profilo cognitivo finale',
+        breakdownTitle: 'Analisi Finale',
+        lblAnswered: 'Domande Risposte:', lblCorrect: 'Risposte Corrette:', lblAccuracy: 'Tasso di Precisione:',
+        lblIQ: 'Deviazione IQ:', lblPercentile: 'Percentile Popolazione:', lblClass: 'Classificazione:',
+        lblRarity: 'Rarità:', lblTime: 'Tempo Utilizzato:',
+        resultNote: '<strong>Nota:</strong> Questa è una simulazione educativa che utilizza la formula della Deviazione IQ: <em>IQ = 100 + 15 × z-score</em>. I test IQ ufficiali devono essere somministrati da psicologi qualificati in condizioni standardizzate.',
+        restartBtn: '🔄 Nuovo Test (Domande Diverse)', reviewBtn: '📋 Revisiona Risposte',
+        reviewTitle: 'Revisione Risposte', backBtn: '← Torna ai Risultati',
+        yourAnswer: 'La tua risposta:', correct: 'Corretto:', explanation: 'Spiegazione:',
+        notAnswered: 'Nessuna risposta', skipped: 'Saltata', incorrect: 'Sbagliata',
+        saveBtn: '💾 Salva Risultato', shareBtn: '🔗 Condividi', copyBtn: '📋 Copia Testo',
+        shareModalTitle: 'Condividi i Tuoi Risultati', closeShareBtn: 'Chiudi', copyLinkBtn: 'Copia',
+        nativeShareLabel: 'Nativo',
+        saveSuccess: 'Risultato salvato come immagine!',
+        copySuccess: 'Risultati copiati negli appunti!',
+        linkCopySuccess: 'Link copiato negli appunti!',
+        shareText: 'Ho ottenuto {iq} IQ nella Valutazione IQ Dinamica! Questo è il percentile {percentile} — {classification}. Provalo anche tu!',
+        leaderboardTitle: '🏆 Classifica Globale',
+        leaderboardSubtitle: 'Confronta i tuoi risultati con i partecipanti di tutto il mondo',
+        leaderboardAdd: 'Aggiungi alla Classifica',
+        leaderboardView: '🏆 Visualizza Classifica',
+        leaderboardNamePrompt: 'Inserisci il tuo nome per salvare il punteggio nella classifica globale!',
+        leaderboardSave: 'Salva Punteggio',
+        leaderboardCancel: 'Annulla',
+        leaderboardEmpty: 'Ancora nessun punteggio. Sii il primo a fare il test!',
+        leaderboardRank: 'Posizione', leaderboardName: 'Nome', leaderboardIQ: 'IQ',
+        leaderboardPercentile: 'Percentile', leaderboardDate: 'Data', leaderboardAccuracy: 'Precisione',
+        leaderboardTime: 'Tempo', leaderboardAllTime: 'Sempre', leaderboardToday: 'Oggi',
+        leaderboardWeek: 'Questa Settimana', leaderboardMonth: 'Questo Mese',
+        leaderboardYourRank: 'La Tua Posizione', leaderboardTopPlayers: 'Migliori Giocatori',
+        leaderboardTotalTests: 'Test Totali', leaderboardAvgIQ: 'IQ Medio',
+        leaderboardHighest: 'IQ Più Alto', leaderboardClear: '🗑️ Cancella i Miei Dati',
+        leaderboardCleared: 'I tuoi dati della classifica sono stati cancellati!',
+        leaderboardAdded: 'Punteggio aggiunto alla classifica!',
+        classifications: {
+            genius: 'Genio / Quasi Perfetto', verySuperior: 'Molto Superiore (Dotato)', superior: 'Superiore',
+            highAverage: 'Sopra la Media', average: 'Media', lowAverage: 'Sotto la Media',
+            borderline: 'Borderline', extremelyLow: 'Estremamente Basso'
+        },
+        rarity: {
+            '1in1000': '1 su 1.000', '1in100': '1 su 100', '1in50': '1 su 50', '1in20': '1 su 20',
+            '1in10': '1 su 10', '1in6': '1 su 6', '1in2': '1 su 2'
+        },
+        generators: {
+            sequenceQ: 'Quale numero completa la sequenza?',
+            letterQ: 'Cosa viene dopo nel pattern?',
+            spatialRotation: 'Se {shape} ruota di 90° in senso orario ad ogni passo, qual è la 5ª posizione?',
+            spatialMirror: 'Qual è l\'immagine speculare di "{letter}"?',
+            spatialCount: 'Quante forme {shape} ci sono in: {shapes}?',
+            spatialFold: 'Se pieghi un foglio {folds} volte e buchi {holes} foro(i), quanti fori quando lo apri?',
+            mathPercent: 'Quanto è il {pct}% di {base}?',
+            mathRatio: 'Se il rapporto di A a B è {a}:{b}, e A = {aM}, quanto è B?',
+            mathAlgebra: 'Se {a}x + {b} = {c}, allora x = ?',
+            mathSpeed: 'Se un\'auto percorre {dist} miglia in {time} minuti, qual è la sua velocità in mph?',
+            logicQ: 'Quale affermazione è logicamente valida?',
+            memoryQ: 'Memorizza questa sequenza. Qual era l\'elemento {pos}?',
+            logicSyllogism: 'Tutti gli {A} sono {B}. Tutti i {B} sono {C}. Quindi:',
+            logicPattern: 'Se {rule1}, e {rule2}, allora quale conclusione?',
+            verbalAnalogies: [
+                {q: 'Mano è a Guanto come Piede è a:', options: ['Dito', 'Scarpa', 'Calzino', 'Caviglia'], correct: 1, exp: 'Un guanto copre una mano; una scarpa copre un piede.'},
+                {q: 'Libro è a Leggere come Forchetta è a:', options: ['Cucina', 'Mangiare', 'Cucinare', 'Cibo'], correct: 1, exp: 'Un libro serve per leggere; una forchetta serve per mangiare.'},
+                {q: 'Caldo è a Freddo come Veloce è a:', options: ['Rapido', 'Lento', 'Velocità', 'Rapido'], correct: 1, exp: 'Relazione di antonimi: Caldo ↔ Freddo, Veloce ↔ Lento.'},
+                {q: 'Dottore è a Ospedale come Insegnante è a:', options: ['Libro', 'Scuola', 'Studente', 'Classe'], correct: 1, exp: 'Relazione di luogo di lavoro: Dottore lavora in Ospedale, Insegnante lavora a Scuola.'},
+                {q: 'Piano è a Musica come Pennello è a:', options: ['Pittura', 'Tela', 'Arte', 'Colore'], correct: 2, exp: 'Strumento e dominio: Piano crea Musica, Pennello crea Arte.'},
+                {q: 'Seme è a Albero come Uovo è a:', options: ['Uccello', 'Nido', 'Pollo', 'Guscio'], correct: 0, exp: 'Ciclo di vita: Seme cresce in Albero, Uovo si schiude in Uccello.'},
+                {q: 'Montagna è a Alta come Valle è a:', options: ['Larga', 'Profonda', 'Bassa', 'Lunga'], correct: 2, exp: 'Attributo/antonimo: Montagna è Alta, Valle è Bassa.'},
+                {q: 'Giorno è a Notte come Alba è a:', options: ['Mattina', 'Tramonto', 'Crepuscolo', 'Mezzogiorno'], correct: 2, exp: 'Coppie di transizione: Giorno↔Notte transizione all\'Alba↔Crepuscolo.'}
             ]
         }
     }
@@ -847,8 +1760,103 @@ let timeRemaining = 20 * 60;
 let timerInterval;
 let testStartTime;
 let finalResults = {};
+let leaderboardData = [];
 
 const t = () => translations[currentLang];
+
+// ==================== LEADERBOARD SYSTEM ====================
+const LEADERBOARD_KEY = 'iq_leaderboard_v2';
+
+function loadLeaderboard() {
+    try {
+        const data = localStorage.getItem(LEADERBOARD_KEY);
+        if (data) {
+            leaderboardData = JSON.parse(data);
+        } else {
+            leaderboardData = generateSampleLeaderboard();
+            saveLeaderboard();
+        }
+    } catch (e) {
+        leaderboardData = generateSampleLeaderboard();
+    }
+}
+
+function saveLeaderboard() {
+    try {
+        localStorage.setItem(LEADERBOARD_KEY, JSON.stringify(leaderboardData));
+    } catch (e) {
+        console.warn('Could not save leaderboard:', e);
+    }
+}
+
+function generateSampleLeaderboard() {
+    const names = ['Alex', 'Maria', 'James', 'Sophie', 'Chen', 'Ahmed', 'Yuki', 'Pierre', 'Sofia', 'Raj', 'Emma', 'Liam', 'Olivia', 'Noah', 'Ava'];
+    const sampleData = [];
+    for (let i = 0; i < 20; i++) {
+        const iq = Math.floor(Math.random() * 55) + 85;
+        const accuracy = Math.floor(Math.random() * 40) + 55;
+        const daysAgo = Math.floor(Math.random() * 30);
+        const date = new Date();
+        date.setDate(date.getDate() - daysAgo);
+        sampleData.push({
+            id: 'sample_' + i,
+            name: names[i % names.length] + (i >= 15 ? i : ''),
+            iq: iq,
+            percentile: Math.max(1, Math.min(99, Math.round((iq - 70) / 75 * 100))),
+            accuracy: accuracy,
+            timeUsed: Math.floor(Math.random() * 800) + 200,
+            date: date.toISOString(),
+            isSample: true
+        });
+    }
+    return sampleData.sort((a, b) => b.iq - a.iq);
+}
+
+function calculatePercentileFromIQ(iq) {
+    const zScore = (iq - 100) / 15;
+    return Math.max(1, Math.min(99, Math.round((1 + (zScore / Math.sqrt(2))) * 50)));
+}
+
+function addToLeaderboard(name, results) {
+    const entry = {
+        id: 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+        name: name.trim() || 'Anonymous',
+        iq: results.iq,
+        percentile: results.percentile,
+        accuracy: results.accuracy,
+        timeUsed: results.timeUsed,
+        date: new Date().toISOString(),
+        isSample: false
+    };
+    leaderboardData.push(entry);
+    leaderboardData.sort((a, b) => b.iq - a.iq);
+    if (leaderboardData.length > 100) {
+        leaderboardData = leaderboardData.slice(0, 100);
+    }
+    saveLeaderboard();
+    return entry;
+}
+
+function getFilteredLeaderboard(filter) {
+    const now = new Date();
+    let filtered = leaderboardData;
+    if (filter === 'today') {
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        filtered = leaderboardData.filter(e => new Date(e.date) >= today);
+    } else if (filter === 'week') {
+        const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        filtered = leaderboardData.filter(e => new Date(e.date) >= weekAgo);
+    } else if (filter === 'month') {
+        const monthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+        filtered = leaderboardData.filter(e => new Date(e.date) >= monthAgo);
+    }
+    return filtered.sort((a, b) => b.iq - a.iq);
+}
+
+function clearUserLeaderboardData() {
+    leaderboardData = leaderboardData.filter(e => e.isSample);
+    saveLeaderboard();
+}
 
 // ==================== LANGUAGE SELECTION ====================
 function initLanguageScreen() {
@@ -882,51 +1890,30 @@ function selectLanguage(lang) {
 
 function applyTranslations() {
     const tr = t();
-    document.getElementById('langSubtitle').textContent = tr.langSubtitle;
-    document.getElementById('startTitle').textContent = tr.startTitle;
-    document.getElementById('startSubtitle').textContent = tr.startSubtitle;
-    document.getElementById('infoTitle').textContent = tr.infoTitle;
-    document.getElementById('info1').textContent = tr.info1;
-    document.getElementById('info2').textContent = tr.info2;
-    document.getElementById('info3').textContent = tr.info3;
-    document.getElementById('info4').textContent = tr.info4;
-    document.getElementById('info5').textContent = tr.info5;
-    document.getElementById('beginBtn').textContent = tr.beginBtn;
-    document.getElementById('liveIQLabel').textContent = tr.liveIQLabel;
-    document.getElementById('livePercentileLabel').textContent = tr.livePercentileLabel;
-    document.getElementById('liveClassLabel').textContent = tr.liveClassLabel;
-    document.getElementById('liveRarityLabel').textContent = tr.liveRarityLabel;
-    document.getElementById('prevBtn').textContent = tr.prevBtn;
-    document.getElementById('nextBtn').textContent = tr.nextBtn;
-    document.getElementById('resultTitle').textContent = tr.resultTitle;
-    document.getElementById('resultSubtitle').textContent = tr.resultSubtitle;
-    document.getElementById('breakdownTitle').textContent = tr.breakdownTitle;
-    document.getElementById('lblAnswered').textContent = tr.lblAnswered;
-    document.getElementById('lblCorrect').textContent = tr.lblCorrect;
-    document.getElementById('lblAccuracy').textContent = tr.lblAccuracy;
-    document.getElementById('lblIQ').textContent = tr.lblIQ;
-    document.getElementById('lblPercentile').textContent = tr.lblPercentile;
-    document.getElementById('lblClass').textContent = tr.lblClass;
-    document.getElementById('lblRarity').textContent = tr.lblRarity;
-    document.getElementById('lblTime').textContent = tr.lblTime;
-    document.getElementById('resultNote').innerHTML = tr.resultNote;
-    document.getElementById('restartBtn').textContent = tr.restartBtn;
-    document.getElementById('reviewBtn').textContent = tr.reviewBtn;
-    document.getElementById('reviewTitle').textContent = tr.reviewTitle;
-    document.getElementById('backBtn').textContent = tr.backBtn;
-    document.getElementById('saveBtnText').textContent = tr.saveBtn;
-    document.getElementById('shareBtnText').textContent = tr.shareBtn;
-    document.getElementById('copyBtnText').textContent = tr.copyBtn;
-    document.getElementById('shareModalTitle').textContent = tr.shareModalTitle;
-    document.getElementById('closeShareBtn').textContent = tr.closeShareBtn;
-    document.getElementById('copyLinkBtn').textContent = tr.copyLinkBtn;
-    document.getElementById('nativeShareLabel').textContent = tr.nativeShareLabel;
+    const ids = ['langSubtitle','startTitle','startSubtitle','infoTitle','info1','info2','info3','info4','info5','info6','info7',
+        'beginBtn','liveIQLabel','livePercentileLabel','liveClassLabel','liveRarityLabel',
+        'prevBtn','nextBtn','resultTitle','resultSubtitle','breakdownTitle',
+        'lblAnswered','lblCorrect','lblAccuracy','lblIQ','lblPercentile','lblClass','lblRarity','lblTime',
+        'restartBtn','reviewBtn','reviewTitle','backBtn',
+        'saveBtnText','shareBtnText','copyBtnText','leaderboardBtnText',
+        'shareModalTitle','closeShareBtn','copyLinkBtn','nativeShareLabel',
+        'leaderboardSubtitle','leaderboardModalTitle','leaderboardModalDesc','submitLeaderboardBtn','cancelLeaderboardBtn'];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && tr[id]) {
+            if (id === 'resultNote' || id === 'info6' || id === 'info7') {
+                el.innerHTML = tr[id];
+            } else {
+                el.textContent = tr[id];
+            }
+        }
+    });
 }
 
-// ==================== DYNAMIC QUESTION GENERATORS ====================
+// ==================== ENHANCED DYNAMIC QUESTION GENERATORS ====================
 const generators = {
     sequence: () => {
-        const types = ['arithmetic', 'geometric', 'fibonacci', 'quadratic', 'alternating', 'power'];
+        const types = ['arithmetic', 'geometric', 'fibonacci', 'quadratic', 'alternating', 'power', 'square', 'cube'];
         const type = types[Math.floor(Math.random() * types.length)];
         let seq = [], answer, explanation, options = [];
         const g = t().generators;
@@ -944,7 +1931,7 @@ const generators = {
                 const ratio = Math.floor(Math.random() * 3) + 2;
                 seq = [start, start * ratio, start * ratio**2, start * ratio**3, '?'];
                 answer = start * ratio**4;
-                explanation = `Geometric sequence: multiply by ${ratio} each time. ${start * ratio**3} × ${ratio} = ${answer}.`;
+                explanation = `Geometric sequence: multiply by ${ratio} each time. ${start * ratio**3} x ${ratio} = ${answer}.`;
                 break;
             }
             case 'fibonacci': {
@@ -959,7 +1946,7 @@ const generators = {
                 const n = Math.floor(Math.random() * 3) + 1;
                 seq = [n*1, n*4, n*9, n*16, n*25, '?'];
                 answer = n * 36;
-                explanation = `Quadratic sequence: n² × ${n}. Next is 6² × ${n} = 36 × ${n} = ${answer}.`;
+                explanation = `Quadratic sequence: n squared x ${n}. Next is 6 squared x ${n} = 36 x ${n} = ${answer}.`;
                 break;
             }
             case 'alternating': {
@@ -975,7 +1962,21 @@ const generators = {
                 const base = Math.floor(Math.random() * 3) + 2;
                 seq = [base**1, base**2, base**3, base**4, '?'];
                 answer = base**5;
-                explanation = `Powers of ${base}: ${base}⁴ = ${base**4}, next is ${base}⁵ = ${answer}.`;
+                explanation = `Powers of ${base}: ${base} to the 4 = ${base**4}, next is ${base} to the 5 = ${answer}.`;
+                break;
+            }
+            case 'square': {
+                const start = Math.floor(Math.random() * 5) + 1;
+                seq = [start**2, (start+1)**2, (start+2)**2, (start+3)**2, '?'];
+                answer = (start+4)**2;
+                explanation = `Square numbers: ${start+3} squared = ${(start+3)**2}, next is ${start+4} squared = ${answer}.`;
+                break;
+            }
+            case 'cube': {
+                const start = Math.floor(Math.random() * 3) + 1;
+                seq = [start**3, (start+1)**3, (start+2)**3, '?'];
+                answer = (start+3)**3;
+                explanation = `Cube numbers: ${start+2} cubed = ${(start+2)**3}, next is ${start+3} cubed = ${answer}.`;
                 break;
             }
         }
@@ -990,7 +1991,7 @@ const generators = {
     },
     letter: () => {
         const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const types = ['skip', 'reverse', 'cycle', 'vowel'];
+        const types = ['skip', 'reverse', 'cycle', 'vowel', 'consonant', 'double'];
         const type = types[Math.floor(Math.random() * types.length)];
         let seq = [], answer, explanation, options = [];
         const g = t().generators;
@@ -1007,7 +2008,7 @@ const generators = {
                 const word = ['CAT', 'DOG', 'SUN', 'BIG', 'RED', 'BOX'][Math.floor(Math.random() * 6)];
                 seq = [word, word.split('').reverse().join(''), word, '?'];
                 answer = word.split('').reverse().join('');
-                explanation = `The word reverses each step: ${word} → ${answer} → ${word} → ${answer}.`;
+                explanation = `The word reverses each step: ${word} -> ${answer} -> ${word} -> ${answer}.`;
                 break;
             }
             case 'cycle': {
@@ -1025,6 +2026,21 @@ const generators = {
                 explanation = `Vowel sequence: A, E, I, O, U. Next after ${vowels[start + 2]} is ${answer}.`;
                 break;
             }
+            case 'consonant': {
+                const consonants = ['B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M'];
+                const start = Math.floor(Math.random() * 6);
+                seq = [consonants[start], consonants[start + 1], consonants[start + 2], '?'];
+                answer = consonants[start + 3];
+                explanation = `Consonant sequence. Next after ${consonants[start + 2]} is ${answer}.`;
+                break;
+            }
+            case 'double': {
+                const start = Math.floor(Math.random() * 15);
+                seq = [alphabet[start], alphabet[start], alphabet[start+1], alphabet[start+1], alphabet[start+2], alphabet[start+2], '?'];
+                answer = alphabet[start+3];
+                explanation = `Double letter pattern: each letter appears twice. Next is ${answer}.`;
+                break;
+            }
         }
         options = [answer];
         while (options.length < 4) {
@@ -1035,7 +2051,7 @@ const generators = {
         return { type: 'letter', question: g.letterQ, pattern: seq, options, correct: options.indexOf(answer), explanation };
     },
     spatial: () => {
-        const types = ['rotation', 'mirror', 'count', 'fold'];
+        const types = ['rotation', 'mirror', 'count', 'fold', 'pattern', 'rotation3d'];
         const type = types[Math.floor(Math.random() * types.length)];
         let question, options = [], correct, explanation;
         const g = t().generators;
@@ -1045,7 +2061,7 @@ const generators = {
                 const shape = shapes[Math.floor(Math.random() * shapes.length)];
                 question = g.spatialRotation.replace('{shape}', shape);
                 correct = shape;
-                explanation = 'After 360° (4 × 90°), the shape returns to its original orientation. The 5th position is the same as the 1st.';
+                explanation = 'After 360 degrees (4 x 90 degrees), the shape returns to its original orientation. The 5th position is the same as the 1st.';
                 break;
             }
             case 'mirror': {
@@ -1072,13 +2088,29 @@ const generators = {
                 const totalLayers = 2 ** folds;
                 question = g.spatialFold.replace('{folds}', folds).replace('{holes}', holes);
                 correct = (holes * totalLayers).toString();
-                explanation = `${folds} folds create ${totalLayers} layers. ${holes} punch × ${totalLayers} layers = ${holes * totalLayers} holes.`;
+                explanation = `${folds} folds create ${totalLayers} layers. ${holes} punch x ${totalLayers} layers = ${holes * totalLayers} holes.`;
+                break;
+            }
+            case 'pattern': {
+                const patterns = ['▲□▲□▲', '○●○●○', '◇◆◇◆◇', '■□■□■'];
+                const pattern = patterns[Math.floor(Math.random() * patterns.length)];
+                question = 'What comes next in: ' + pattern + ' ?';
+                correct = pattern[0];
+                explanation = `The pattern ${pattern} repeats. The next element after the last is the first element "${pattern[0]}".`;
+                break;
+            }
+            case 'rotation3d': {
+                const shapes = ['🎲', '📦', '📐', '🔺'];
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                question = `If ${shape} rotates 180 degrees each step, what is the 3rd position?`;
+                correct = shape;
+                explanation = `180 degrees rotation x 2 = 360 degrees, returning to original position. The 3rd position is the same as the 1st.`;
                 break;
             }
         }
         options = [correct];
         const distractors = [parseInt(correct) + 1, parseInt(correct) - 1, parseInt(correct) * 2].map(x => x.toString());
-        distractors.forEach(d => { if (!options.includes(d) && d !== '0') options.push(d); });
+        distractors.forEach(d => { if (!options.includes(d) && d !== '0' && d !== 'NaN') options.push(d); });
         while (options.length < 4) {
             const r = (Math.floor(Math.random() * 10) + 1).toString();
             if (!options.includes(r)) options.push(r);
@@ -1087,7 +2119,7 @@ const generators = {
         return { type: 'spatial', question, pattern: null, options, correct: options.indexOf(correct), explanation };
     },
     math: () => {
-        const types = ['percent', 'ratio', 'algebra', 'speed'];
+        const types = ['percent', 'ratio', 'algebra', 'speed', 'fraction', 'compound'];
         const type = types[Math.floor(Math.random() * types.length)];
         let question, answer, explanation, options = [];
         const g = t().generators;
@@ -1097,7 +2129,7 @@ const generators = {
                 const pct = [10, 15, 20, 25, 50][Math.floor(Math.random() * 5)];
                 answer = Math.round(base * pct / 100);
                 question = g.mathPercent.replace('{pct}', pct).replace('{base}', base * 10);
-                explanation = `${pct}% of ${base * 10} = 0.${pct} × ${base * 10} = ${answer}.`;
+                explanation = `${pct}% of ${base * 10} = 0.${pct} x ${base * 10} = ${answer}.`;
                 break;
             }
             case 'ratio': {
@@ -1106,7 +2138,7 @@ const generators = {
                 const multiplier = Math.floor(Math.random() * 5) + 2;
                 answer = b * multiplier;
                 question = g.mathRatio.replace('{a}', a).replace('{b}', b).replace('{aM}', a * multiplier);
-                explanation = `Ratio ${a}:${b} means B = (${b}/${a}) × ${a * multiplier} = ${answer}.`;
+                explanation = `Ratio ${a}:${b} means B = (${b}/${a}) x ${a * multiplier} = ${answer}.`;
                 break;
             }
             case 'algebra': {
@@ -1126,6 +2158,23 @@ const generators = {
                 explanation = `${time} minutes = ${time/60} hours. Speed = ${dist * 10} / ${time/60} = ${answer} mph.`;
                 break;
             }
+            case 'fraction': {
+                const num = Math.floor(Math.random() * 5) + 2;
+                const den = num + Math.floor(Math.random() * 3) + 1;
+                const whole = Math.floor(Math.random() * 5) + 1;
+                answer = whole * num;
+                question = `What is ${whole} x ${num}/${den} of ${den}?`;
+                explanation = `${whole} x ${num}/${den} x ${den} = ${whole} x ${num} = ${answer}.`;
+                break;
+            }
+            case 'compound': {
+                const principal = Math.floor(Math.random() * 500) + 100;
+                const rate = [5, 10, 20][Math.floor(Math.random() * 3)];
+                answer = Math.round(principal * (1 + rate/100));
+                question = `If $${principal} increases by ${rate}%, what is the new amount?`;
+                explanation = `$${principal} + (${rate}% of $${principal}) = $${principal} + $${principal * rate/100} = $${answer}.`;
+                break;
+            }
         }
         options = [answer.toString()];
         while (options.length < 4) {
@@ -1141,11 +2190,105 @@ const generators = {
         const analogies = g.verbalAnalogies;
         const item = analogies[Math.floor(Math.random() * analogies.length)];
         return { type: 'verbal', question: item.q, pattern: null, options: item.options, correct: item.correct, explanation: item.exp };
+    },
+    logic: () => {
+        const g = t().generators;
+        const types = ['syllogism', 'pattern', 'deduction'];
+        const type = types[Math.floor(Math.random() * types.length)];
+        let question, options, correct, explanation;
+        switch(type) {
+            case 'syllogism': {
+                const categories = [
+                    {A: 'cats', B: 'mammals', C: 'animals'},
+                    {A: 'squares', B: 'rectangles', C: 'polygons'},
+                    {A: 'roses', B: 'flowers', C: 'plants'},
+                    {A: 'doctors', B: 'professionals', C: 'workers'},
+                    {A: 'penguins', B: 'birds', C: 'animals'}
+                ];
+                const cat = categories[Math.floor(Math.random() * categories.length)];
+                question = g.logicSyllogism.replace('{A}', cat.A).replace('{B}', cat.B).replace('{C}', cat.C);
+                options = [
+                    `All ${cat.A} are ${cat.C}`,
+                    `Some ${cat.A} are not ${cat.C}`,
+                    `No ${cat.A} are ${cat.C}`,
+                    `All ${cat.C} are ${cat.A}`
+                ];
+                correct = 0;
+                explanation = `By transitive property: All A are B, and all B are C, therefore all A are C.`;
+                break;
+            }
+            case 'pattern': {
+                const rules = [
+                    {rule1: 'All circles are red', rule2: 'All red things are big'},
+                    {rule1: 'If it rains, the ground gets wet', rule2: 'The ground is wet'},
+                    {rule1: 'All birds can fly', rule2: 'Penguins are birds'}
+                ];
+                const rule = rules[Math.floor(Math.random() * rules.length)];
+                question = g.logicPattern.replace('{rule1}', rule.rule1).replace('{rule2}', rule.rule2);
+                if (rule.rule1.includes('circles')) {
+                    options = ['All circles are big', 'All big things are circles', 'Some circles are not big', 'No circles are big'];
+                    correct = 0;
+                    explanation = 'If all circles are red, and all red things are big, then all circles must be big.';
+                } else if (rule.rule1.includes('rains')) {
+                    options = ['It rained', 'It might not have rained', 'The ground is always wet', 'It will rain tomorrow'];
+                    correct = 1;
+                    explanation = 'The ground being wet could be from rain OR other causes (sprinklers, etc.). We cannot conclude it definitely rained.';
+                } else {
+                    options = ['Penguins can fly', 'Penguins cannot fly', 'All birds except penguins can fly', 'Some birds cannot fly'];
+                    correct = 3;
+                    explanation = 'The premises state all birds can fly, but we know penguins cannot. This creates a contradiction, so "some birds cannot fly" is the safest conclusion.';
+                }
+                break;
+            }
+            case 'deduction': {
+                const scenarios = [
+                    {setup: 'A is taller than B. B is taller than C.', question: 'Who is the shortest?', answer: 'C', options: ['A', 'B', 'C', 'Cannot tell']},
+                    {setup: 'If X then Y. If Y then Z. X is true.', question: 'What must be true?', answer: 'Z', options: ['Only Y', 'Only Z', 'Both Y and Z', 'Neither']},
+                    {setup: 'All apples are fruits. Some fruits are sweet.', question: 'What follows?', answer: 'Some apples may be sweet', options: ['All apples are sweet', 'No apples are sweet', 'Some apples may be sweet', 'All sweet things are apples']}
+                ];
+                const scen = scenarios[Math.floor(Math.random() * scenarios.length)];
+                question = scen.setup + ' ' + scen.question;
+                options = scen.options;
+                correct = options.indexOf(scen.answer);
+                explanation = `By logical deduction from the given premises, ${scen.answer} is the correct conclusion.`;
+                break;
+            }
+        }
+        return { type: 'logic', question, pattern: null, options, correct, explanation };
+    },
+    memory: () => {
+        const g = t().generators;
+        const items = ['🔴', '🔵', '🟢', '🟡', '🟣', '🟠', '⭐', '❤️', '⚡', '🌙'];
+        const length = Math.floor(Math.random() * 3) + 4;
+        const sequence = [];
+        for (let i = 0; i < length; i++) {
+            sequence.push(items[Math.floor(Math.random() * items.length)]);
+        }
+        const pos = Math.floor(Math.random() * length) + 1;
+        const correct = sequence[pos - 1];
+        const options = [correct];
+        while (options.length < 4) {
+            const item = items[Math.floor(Math.random() * items.length)];
+            if (!options.includes(item)) options.push(item);
+        }
+        options.sort(() => Math.random() - 0.5);
+        const question = g.memoryQ.replace('{pos}', pos);
+        const explanation = `The sequence was: ${sequence.join(' ')}. The ${pos}${pos === 1 ? 'st' : pos === 2 ? 'nd' : pos === 3 ? 'rd' : 'th'} item was ${correct}.`;
+        return { 
+            type: 'memory', 
+            question: question + ' Memorize: ' + sequence.join(' ') + ' (You have 5 seconds)',
+            pattern: sequence, 
+            options, 
+            correct: options.indexOf(correct), 
+            explanation,
+            memorySequence: sequence,
+            memoryPos: pos
+        };
     }
 };
 
 function generateQuestion() {
-    const types = ['sequence', 'letter', 'spatial', 'math', 'verbal'];
+    const types = ['sequence', 'letter', 'spatial', 'math', 'verbal', 'logic', 'memory'];
     const type = types[Math.floor(Math.random() * types.length)];
     return generators[type]();
 }
@@ -1263,14 +2406,37 @@ function showQuestion(index) {
     document.getElementById('questionCounter').textContent = t().questionCounter.replace('{n}', index + 1).replace('{total}', TOTAL_QUESTIONS);
     document.getElementById('prevBtn').style.display = index === 0 ? 'none' : 'inline-block';
     document.getElementById('nextBtn').textContent = index === TOTAL_QUESTIONS - 1 ? t().finishBtn : t().nextBtn;
+
     let html = `<div class="question-text">${q.question}</div>`;
+
+    if (q.type === 'memory') {
+        html += '<div class="pattern-container" id="memoryDisplay">';
+        q.memorySequence.forEach((item) => {
+            html += `<div class="pattern-box" style="font-size:2.5em;">${item}</div>`;
+        });
+        html += '</div>';
+        html += '<div style="text-align:center; margin:15px 0; color:#64748b; font-weight:600;">Memorize the sequence above! Options will appear in 5 seconds...</div>';
+        container.innerHTML = html;
+        setTimeout(() => {
+            let optionsHtml = `<div class="question-text">${q.question.replace(' Memorize: ' + q.memorySequence.join(' ') + ' (You have 5 seconds)', '')}</div>`;
+            optionsHtml += '<div class="options-grid">';
+            q.options.forEach((opt, i) => {
+                const selected = answers[index] === i ? 'selected' : '';
+                optionsHtml += `<button class="option-btn ${selected}" onclick="selectAnswer(${i})" id="opt-${i}">${opt}</button>`;
+            });
+            optionsHtml += '</div>';
+            container.innerHTML = optionsHtml;
+        }, 5000);
+        return;
+    }
+
     if (q.pattern) {
         html += '<div class="pattern-container">';
         q.pattern.forEach((item, i) => {
             if (item === '?') html += `<div class="pattern-box missing">?</div>`;
             else {
                 html += `<div class="pattern-box">${item}</div>`;
-                if (i < q.pattern.length - 1 && q.pattern[i+1] !== '?') html += '<span class="pattern-arrow">→</span>';
+                if (i < q.pattern.length - 1 && q.pattern[i+1] !== '?') html += '<span class="pattern-arrow">-></span>';
             }
         });
         html += '</div>';
@@ -1318,9 +2484,9 @@ function calculateFinalResults() {
     const rarity = getRarity(percentile);
     const timeUsed = Math.floor((Date.now() - testStartTime) / 1000);
     const minutes = Math.floor(timeUsed / 60), seconds = timeUsed % 60;
-    
+
     finalResults = { iq, percentile, classification, rarity, correct, answered, accuracy, timeUsed, minutes, seconds };
-    
+
     document.getElementById('testScreen').classList.remove('active');
     document.getElementById('resultScreen').classList.add('active');
     animateValue('finalIQ', 50, iq, 1500);
@@ -1356,6 +2522,132 @@ function animateValue(id, start, end, duration) {
     run();
 }
 
+// ==================== LEADERBOARD UI ====================
+let currentLeaderboardFilter = 'all';
+
+function showLeaderboardScreen() {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('leaderboardScreen').classList.add('active');
+    renderLeaderboard();
+}
+
+function backFromLeaderboard() {
+    document.getElementById('leaderboardScreen').classList.remove('active');
+    document.getElementById('startScreen').classList.add('active');
+}
+
+function renderLeaderboard() {
+    const tr = t();
+    const filtered = getFilteredLeaderboard(currentLeaderboardFilter);
+
+    const statsEl = document.getElementById('leaderboardStats');
+    const totalTests = leaderboardData.length;
+    const avgIQ = Math.round(leaderboardData.reduce((a, b) => a + b.iq, 0) / totalTests) || 100;
+    const highest = leaderboardData.length > 0 ? Math.max(...leaderboardData.map(e => e.iq)) : 100;
+    const topPlayers = leaderboardData.filter(e => e.iq >= 130).length;
+
+    statsEl.innerHTML = `
+        <div class="leaderboard-stat-box"><div class="value">${totalTests}</div><div class="label">${tr.leaderboardTotalTests}</div></div>
+        <div class="leaderboard-stat-box"><div class="value">${avgIQ}</div><div class="label">${tr.leaderboardAvgIQ}</div></div>
+        <div class="leaderboard-stat-box"><div class="value">${highest}</div><div class="label">${tr.leaderboardHighest}</div></div>
+        <div class="leaderboard-stat-box"><div class="value">${topPlayers}</div><div class="label">${tr.leaderboardTopPlayers}</div></div>
+    `;
+
+    const tabsEl = document.getElementById('leaderboardTabs');
+    tabsEl.innerHTML = `
+        <button class="leaderboard-tab ${currentLeaderboardFilter === 'all' ? 'active' : ''}" onclick="setLeaderboardFilter('all')">${tr.leaderboardAllTime}</button>
+        <button class="leaderboard-tab ${currentLeaderboardFilter === 'today' ? 'active' : ''}" onclick="setLeaderboardFilter('today')">${tr.leaderboardToday}</button>
+        <button class="leaderboard-tab ${currentLeaderboardFilter === 'week' ? 'active' : ''}" onclick="setLeaderboardFilter('week')">${tr.leaderboardWeek}</button>
+        <button class="leaderboard-tab ${currentLeaderboardFilter === 'month' ? 'active' : ''}" onclick="setLeaderboardFilter('month')">${tr.leaderboardMonth}</button>
+    `;
+
+    const contentEl = document.getElementById('leaderboardContent');
+    if (filtered.length === 0) {
+        contentEl.innerHTML = `<div class="leaderboard-empty">${tr.leaderboardEmpty}</div>`;
+        return;
+    }
+
+    let html = `<table class="leaderboard-table">
+        <thead>
+            <tr>
+                <th>${tr.leaderboardRank}</th>
+                <th>${tr.leaderboardName}</th>
+                <th>${tr.leaderboardIQ}</th>
+                <th>${tr.leaderboardPercentile}</th>
+                <th>${tr.leaderboardAccuracy}</th>
+                <th>${tr.leaderboardDate}</th>
+            </tr>
+        </thead>
+        <tbody>`;
+
+    filtered.slice(0, 20).forEach((entry, i) => {
+        const rank = i + 1;
+        const date = new Date(entry.date);
+        const dateStr = date.toLocaleDateString();
+        const rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : '';
+        const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `#${rank}`;
+
+        html += `<tr class="${rankClass}">
+            <td class="rank-cell">${medal}</td>
+            <td class="name-cell">${escapeHtml(entry.name)}</td>
+            <td class="iq-cell">${entry.iq}</td>
+            <td>${entry.percentile}th</td>
+            <td>${entry.accuracy}%</td>
+            <td class="date-cell">${dateStr}</td>
+        </tr>`;
+    });
+
+    html += '</tbody></table>';
+    contentEl.innerHTML = html;
+}
+
+function setLeaderboardFilter(filter) {
+    currentLeaderboardFilter = filter;
+    renderLeaderboard();
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function promptLeaderboardEntry() {
+    const tr = t();
+    document.getElementById('leaderboardModalTitle').textContent = tr.leaderboardAdd;
+    document.getElementById('leaderboardModalDesc').textContent = tr.leaderboardNamePrompt;
+    document.getElementById('submitLeaderboardBtn').textContent = tr.leaderboardSave;
+    document.getElementById('cancelLeaderboardBtn').textContent = tr.leaderboardCancel;
+    document.getElementById('leaderboardNameInput').placeholder = tr.leaderboardName;
+    document.getElementById('leaderboardModal').classList.add('active');
+}
+
+function submitToLeaderboard() {
+    const name = document.getElementById('leaderboardNameInput').value;
+    if (!name.trim()) {
+        showToast('Please enter a name!');
+        return;
+    }
+    addToLeaderboard(name, finalResults);
+    closeLeaderboardModal();
+    showToast(t().leaderboardAdded);
+    document.getElementById('leaderboardNameInput').value = '';
+}
+
+function closeLeaderboardModal(e) {
+    if (!e || e.target.id === 'leaderboardModal' || e.target.id === 'cancelLeaderboardBtn') {
+        document.getElementById('leaderboardModal').classList.remove('active');
+    }
+}
+
+function clearLeaderboard() {
+    if (confirm('Are you sure you want to clear your leaderboard data? This will remove all your personal scores but keep sample data.')) {
+        clearUserLeaderboardData();
+        showToast(t().leaderboardCleared);
+        renderLeaderboard();
+    }
+}
+
 // ==================== SAVE & SHARE ====================
 function showToast(message) {
     const toast = document.getElementById('toast');
@@ -1373,26 +2665,22 @@ function saveResults() {
     canvas.width = rect.width * scale;
     canvas.height = rect.height * scale;
     ctx.scale(scale, scale);
-    
-    // Background
+
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, rect.width, rect.height);
-    
-    // Header gradient bar
+
     const grad = ctx.createLinearGradient(0, 0, rect.width, 0);
     grad.addColorStop(0, '#6366f1');
     grad.addColorStop(0.5, '#8b5cf6');
     grad.addColorStop(1, '#ec4899');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, rect.width, 6);
-    
-    // Title
+
     ctx.fillStyle = '#0f172a';
     ctx.font = 'bold 28px "Segoe UI", sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('🧠 IQ Assessment Result', rect.width / 2, 50);
-    
-    // IQ Circle
+    ctx.fillText('IQ Assessment Result', rect.width / 2, 50);
+
     const cx = rect.width / 2, cy = 140, r = 70;
     const circleGrad = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
     circleGrad.addColorStop(0, '#6366f1');
@@ -1402,32 +2690,27 @@ function saveResults() {
     ctx.arc(cx, cy, r, 0, Math.PI * 2);
     ctx.fillStyle = circleGrad;
     ctx.fill();
-    ctx.shadowColor = 'rgba(99,102,241,0.4)';
-    ctx.shadowBlur = 20;
-    ctx.fill();
     ctx.shadowBlur = 0;
-    
+
     ctx.fillStyle = '#ffffff';
     ctx.font = 'bold 56px "Segoe UI", sans-serif';
     ctx.fillText(finalResults.iq.toString(), cx, cy + 15);
     ctx.font = 'bold 16px "Segoe UI", sans-serif';
     ctx.fillText('IQ', cx, cy + 40);
-    
-    // Classification
+
     ctx.fillStyle = '#0f172a';
     ctx.font = 'bold 22px "Segoe UI", sans-serif';
     ctx.fillText(finalResults.classification, cx, cy + 110);
     ctx.fillStyle = '#64748b';
     ctx.font = '16px "Segoe UI", sans-serif';
     ctx.fillText(`${finalResults.percentile}th Percentile`, cx, cy + 135);
-    
-    // Stats box
+
     const boxY = cy + 160;
     ctx.fillStyle = '#f8fafc';
     ctx.beginPath();
     ctx.roundRect(30, boxY, rect.width - 60, 200, 12);
     ctx.fill();
-    
+
     const stats = [
         [`Questions:`, `${finalResults.answered}/${TOTAL_QUESTIONS}`],
         [`Correct:`, `${finalResults.correct}`],
@@ -1436,7 +2719,7 @@ function saveResults() {
         [`Percentile:`, `${finalResults.percentile}th`],
         [`Rarity:`, `${finalResults.rarity}`]
     ];
-    
+
     ctx.textAlign = 'left';
     stats.forEach((stat, i) => {
         const y = boxY + 30 + i * 28;
@@ -1447,14 +2730,12 @@ function saveResults() {
         ctx.font = 'bold 14px "Segoe UI", sans-serif';
         ctx.fillText(stat[1], rect.width - 50 - ctx.measureText(stat[1]).width, y);
     });
-    
-    // Footer note
+
     ctx.fillStyle = '#94a3b8';
     ctx.font = '11px "Segoe UI", sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('Educational simulation • Deviation IQ Formula: IQ = 100 + 15 × z-score', cx, rect.height - 20);
-    
-    // Download
+    ctx.fillText('Educational simulation - Deviation IQ Formula: IQ = 100 + 15 x z-score', cx, rect.height - 20);
+
     const link = document.createElement('a');
     link.download = `IQ-Result-${finalResults.iq}.png`;
     link.href = canvas.toDataURL('image/png');
@@ -1465,19 +2746,18 @@ function saveResults() {
 function copyResults() {
     const tr = t();
     const text = `${tr.startTitle}\n\n` +
-        `🎯 ${tr.lblIQ} ${finalResults.iq}\n` +
-        `📊 ${tr.lblPercentile} ${finalResults.percentile}th\n` +
-        `🏆 ${tr.lblClass} ${finalResults.classification}\n` +
-        `🎲 ${tr.lblRarity} ${finalResults.rarity}\n` +
-        `✅ ${tr.lblCorrect} ${finalResults.correct}/${TOTAL_QUESTIONS}\n` +
-        `📈 ${tr.lblAccuracy} ${finalResults.accuracy}%\n\n` +
+        `IQ: ${finalResults.iq}\n` +
+        `Percentile: ${finalResults.percentile}th\n` +
+        `Classification: ${finalResults.classification}\n` +
+        `Rarity: ${finalResults.rarity}\n` +
+        `Correct: ${finalResults.correct}/${TOTAL_QUESTIONS}\n` +
+        `Accuracy: ${finalResults.accuracy}%\n\n` +
         `${tr.shareText.replace('{iq}', finalResults.iq).replace('{percentile}', finalResults.percentile).replace('{classification}', finalResults.classification)}`;
     navigator.clipboard.writeText(text).then(() => showToast(tr.copySuccess));
 }
 
 function openShareModal() {
     const tr = t();
-    const shareText = tr.shareText.replace('{iq}', finalResults.iq).replace('{percentile}', finalResults.percentile).replace('{classification}', finalResults.classification);
     const shareUrl = window.location.href.split('?')[0];
     document.getElementById('shareLinkInput').value = shareUrl;
     document.getElementById('shareModal').classList.add('active');
@@ -1500,7 +2780,7 @@ function shareTo(platform) {
     const text = tr.shareText.replace('{iq}', finalResults.iq).replace('{percentile}', finalResults.percentile).replace('{classification}', finalResults.classification);
     const url = window.location.href.split('?')[0];
     let shareUrl = '';
-    
+
     switch(platform) {
         case 'twitter':
             shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
@@ -1545,7 +2825,7 @@ function showReview() {
             <div class="review-item ${statusClass}">
                 <div style="font-weight: bold; margin-bottom: 8px; color: ${isSkipped ? '#64748b' : (isCorrect ? '#166534' : '#991b1b')}">Q${i + 1}: ${statusText}</div>
                 <div style="margin-bottom: 8px; font-weight: 500;">${q.question}</div>
-                ${q.pattern ? `<div style="margin: 8px 0; font-family: monospace; font-size: 1.1em;">${q.pattern.join(' → ')}</div>` : ''}
+                ${q.pattern ? `<div style="margin: 8px 0; font-family: monospace; font-size: 1.1em;">${q.pattern.join(' -> ')}</div>` : ''}
                 <div style="margin: 8px 0;"><strong>${tr.yourAnswer}</strong> ${userAns !== null ? q.options[userAns] : tr.notAnswered}</div>
                 <div style="color: #166534;"><strong>${tr.correct}</strong> ${q.options[q.correct]}</div>
                 <div style="margin-top: 8px; padding: 8px; background: rgba(59,130,246,0.1); border-radius: 6px; font-size: 0.9em; color: #1e40af;"><strong>${tr.explanation}</strong> ${q.explanation}</div>
@@ -1580,6 +2860,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 // Init
+loadLeaderboard();
 initLanguageScreen();
 </script>
 </body>
